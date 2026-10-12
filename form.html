@@ -4,15 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Form Functions</title>
+    <style>
+* {
+  text-align: center;
+  color: blue;
+}
+</style>
 </head>
 <body>
     <h1>Basic information</h1>
 
-<form action="result.html" method="get" novalidate target="_blank">
+<form action="result.html" method="get"  target="_blank">
   <label for="fname">First name:</label><br>
   <input type="text" id="fname" name="fname" value="John"><br>
   <label for="lname">Last name:</label><br>
-  <input type="text" id="lname" name="lname" value="Doe"><br><br>
+  <input type="text" id="lname" name="lname" value="Doe" required><br><br>
 
 
   <input type="radio" id="html" name="fav_language" value="HTML">
@@ -62,7 +68,7 @@
    <label for="email">Enter your email:</label>
   <input type="email" id="email" name="email"><br><br>
   <input type="submit" value="Submit">
-   <input type="submit" formnovalidate="formnovalidate"
+  <input type="submit" formnovalidate="formnovalidate"
   value="Submit without validation">
 
   <button type="button" onclick="alert('Hello World!')">Click Me!</button>
