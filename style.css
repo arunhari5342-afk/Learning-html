@@ -1,0 +1,590 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', Arial, sans-serif;
+    background: #ffffff;
+    color: #080808;
+}
+
+.login-page {
+    width: 100%;
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow: hidden;
+}
+
+
+
+.login-panel {
+    position: relative;
+    min-width: 0;
+    min-height: 100vh;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+}
+
+.brand {
+    position: absolute;
+    top: 9.5%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(78%, 480px);
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: -0.6px;
+}
+
+.brand-icon {
+    width: 24px;
+    height: 23px;
+}
+
+.login-content {
+    width: min(70%, 450px);
+    margin: auto;
+    padding-top: 50px;
+}
+
+.eyebrow {
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 12px;
+}
+
+.login-content h1 {
+    font-size: clamp(25px, 2.05vw, 32px);
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -1.15px;
+    white-space: nowrap;
+}
+
+.description {
+    margin-top: 12px;
+    margin-bottom: 28px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #151515;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 16px;
+}
+
+.form-group label {
+    font-size: 11px;
+    font-weight: 600;
+    margin-bottom: 7px;
+}
+
+.form-group input {
+    width: 100%;
+    height: 41px;
+    border: 1px solid #e4e6e9;
+    border-radius: 10px;
+    background: #fff;
+    padding: 0 15px;
+    font-family: inherit;
+    font-size: 11px;
+    color: #222;
+    outline: none;
+}
+
+.form-group input::placeholder {
+    color: #a6a6a6;
+}
+
+.submit-button {
+    width: 100%;
+    height: 41px;
+    margin-top: 0;
+    border: 1px solid #2448f5;
+    border-radius: 24px;
+    background: #2949ed;
+    color: #fff;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: default;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.arrow {
+    font-size: 20px;
+    line-height: 1;
+    font-weight: 400;
+}
+
+.google-button {
+    width: 100%;
+    height: 41px;
+    margin-top: 15px;
+    border: 1px solid #111;
+    border-radius: 24px;
+    background: #fff;
+    color: #111;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    cursor: default;
+}
+
+.google-icon {
+    font-family: Arial, sans-serif;
+    font-size: 19px;
+    font-weight: 800;
+    background: conic-gradient(
+        from -45deg,
+        #4285f4 0deg 90deg,
+        #34a853 90deg 180deg,
+        #fbbc05 180deg 255deg,
+        #ea4335 255deg 315deg,
+        #4285f4 315deg
+    );
+    color: transparent;
+    background-clip: text;
+}
+
+
+
+.art-panel {
+    min-width: 0;
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+    background:
+        radial-gradient(
+            ellipse at 35% 70%,
+            #e6efff 0%,
+            transparent 60%
+        ),
+        linear-gradient(
+            145deg,
+            #dceaff 0%,
+            #edf4ff 45%,
+            #dce7f7 100%
+        );
+}
+
+
+
+.dashboard {
+    position: absolute;
+    top: 2.5%;
+    left: 6%;
+    right: 6%;
+    display: grid;
+    grid-template-columns: 1fr 1.04fr;
+    gap: 10px;
+    align-items: start;
+    z-index: 5;
+}
+
+.revenue-card {
+    min-width: 0;
+    padding: 18px 20px 19px;
+    border: 1px solid rgba(255, 255, 255, 0.95);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.18);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+}
+
+.card-heading {
+    font-size: 15px;
+    margin-bottom: 5px;
+}
+
+.revenue-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.revenue-row strong {
+    font-size: clamp(18px, 1.7vw, 23px);
+    letter-spacing: -0.7px;
+}
+
+.growth {
+    color: #008c9d;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.chart-layout {
+    margin-top: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.pie-chart {
+    width: clamp(90px, 9vw, 132px);
+    aspect-ratio: 1;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: conic-gradient(
+        #050505 0deg 45deg,
+        #283f9f 45deg 90deg,
+        #9ab8f9 90deg 135deg,
+        #4c66f0 135deg 315deg,
+        #050505 315deg 360deg
+    );
+    transform: rotate(0deg);
+}
+
+.chart-legend {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    font-size: 11px;
+    white-space: nowrap;
+}
+
+.chart-legend > div {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.may {
+    background: #9ab8f9;
+}
+
+.june {
+    background: #4c66f0;
+}
+
+.july {
+    background: #283f9f;
+}
+
+.august {
+    background: #111;
+}
+
+
+
+.notifications {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.notification {
+    min-width: 0;
+    min-height: 51px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.96);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.22);
+}
+
+.avatar {
+    flex-shrink: 0;
+    width: 29px;
+    height: 29px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    font-size: 12px;
+    font-weight: 700;
+    color: #26304b;
+    border: 1px solid #ffffff;
+}
+
+.avatar-one {
+    background: linear-gradient(135deg, #e6c2a7, #a77b67);
+}
+
+.avatar-two {
+    background: linear-gradient(135deg, #c7ddf7, #7d91b6);
+}
+
+.notification-text {
+    min-width: 0;
+}
+
+.notification-text strong {
+    display: block;
+    font-size: 10px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.notification-text p {
+    font-size: 8px;
+    color: #3d4658;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.message-icon {
+    font-size: 10px;
+    color: #fff;
+    background: #161b28;
+    padding: 1px 3px;
+    margin-right: 3px;
+}
+
+.check-icon {
+    display: inline-grid;
+    place-items: center;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: #1877ee;
+    color: white;
+    font-weight: 700;
+    margin-right: 3px;
+}
+
+
+
+.geometry {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 43%;
+    bottom: 0;
+    overflow: hidden;
+    perspective: 800px;
+}
+
+.shape {
+    position: absolute;
+    transform-style: preserve-3d;
+}
+
+
+
+.shape-blue {
+    left: -14%;
+    top: 34%;
+    width: 100%;
+    height: 60%;
+    transform: skewY(-22deg) rotate(0deg);
+    background: linear-gradient(
+        165deg,
+        #536dff 0%,
+        #8196ff 25%,
+        #253cc1 55%,
+        #111d70 100%
+    );
+    border-top: 1px solid #ffffff;
+    box-shadow: 0 -3px 20px #5574ff35;
+}
+
+
+
+.shape-glass {
+    left: 22%;
+    top: 17%;
+    width: 86%;
+    height: 115%;
+    border-top: 1px solid #ffffff;
+    border-left: 1px solid #ffffff;
+    background: linear-gradient(
+        130deg,
+        rgba(104, 122, 157, 0.43),
+        rgba(239, 245, 255, 0.72) 40%,
+        rgba(168, 184, 219, 0.45)
+    );
+    clip-path: polygon(
+        0 17%, 100% 0, 100% 100%,
+        25% 100%, 25% 42%, 0 53%
+    );
+}
+
+.shape-lavender {
+    left: 29%;
+    top: 29%;
+    width: 87%;
+    height: 105%;
+    background: linear-gradient(
+        125deg,
+        rgba(109, 132, 242, 0.58),
+        rgba(244, 247, 255, 0.8) 46%,
+        rgba(103, 124, 193, 0.7)
+    );
+    border-top: 1px solid #fff;
+    clip-path: polygon(
+        0 18%, 100% 0, 100% 100%,
+        23% 100%, 23% 44%, 0 55%
+    );
+}
+
+.shape-white {
+    left: 37%;
+    top: 39%;
+    width: 86%;
+    height: 100%;
+    background: linear-gradient(
+        130deg,
+        rgba(255, 255, 255, 0.82),
+        rgba(224, 233, 249, 0.92) 48%,
+        rgba(154, 174, 213, 0.7)
+    );
+    border-top: 1px solid white;
+    clip-path: polygon(
+        0 18%, 100% 0, 100% 100%,
+        21% 100%, 21% 45%, 0 56%
+    );
+}
+
+.shape-dark {
+    right: -22%;
+    top: 40%;
+    width: 60%;
+    height: 72%;
+    background: linear-gradient(
+        145deg,
+        #263249,
+        #0b1230 60%,
+        #293c7a
+    );
+    border-top: 1px solid #aebfff;
+    clip-path: polygon(
+        0 26%, 100% 0, 100% 100%,
+        20% 100%, 20% 49%, 0 61%
+    );
+}
+
+.shape-front {
+    right: -10%;
+    top: 59%;
+    width: 56%;
+    height: 60%;
+    background: linear-gradient(
+        140deg,
+        rgba(14, 25, 67, 0.96),
+        #101831 65%,
+        #4057bb
+    );
+    border-top: 1px solid #c7d5ff;
+    clip-path: polygon(
+        0 22%, 100% 0, 100% 100%,
+        26% 100%, 26% 50%, 0 65%
+    );
+}
+
+
+
+@media (min-width: 1500px) {
+    .login-page {
+        max-width: 1600px;
+        margin: 0 auto;
+    }
+
+    .login-content {
+        width: min(70%, 470px);
+    }
+}
+
+@media (max-width: 900px) {
+    .login-content {
+        width: 82%;
+    }
+
+    .brand {
+        width: 82%;
+    }
+
+    .login-content h1 {
+        white-space: normal;
+    }
+
+    .dashboard {
+        grid-template-columns: 1fr;
+        left: 5%;
+        right: 5%;
+    }
+
+    .revenue-card {
+        padding: 13px;
+    }
+
+    .chart-layout {
+        justify-content: flex-start;
+    }
+
+    .pie-chart {
+        width: 85px;
+    }
+
+    .chart-legend {
+        gap: 5px;
+    }
+
+    .notifications {
+        display: none;
+    }
+}
+
+@media (max-width: 600px) {
+    .login-page {
+        grid-template-columns: 1fr;
+    }
+
+    .login-panel {
+        min-height: 100vh;
+    }
+
+    .brand {
+        top: 35px;
+        width: 82%;
+    }
+
+    .login-content {
+        width: 82%;
+        padding-top: 50px;
+    }
+
+    .login-content h1 {
+        font-size: 29px;
+    }
+
+    .art-panel {
+        display: none;
+    }
+}
