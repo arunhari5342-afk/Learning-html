@@ -1,632 +1,603 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
-/* Import the Google Font */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-
-/* Remove default browser spacing */
+/* Applies these styles to every HTML element */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+    margin: 0;              /* Removes default outside spacing */
+    padding: 0;             /* Removes default inside spacing */
+    box-sizing: border-box; /* Includes padding and border in width/height */
 }
 
-/* Main page layout */
 body {
-    font-family: 'Inter', sans-serif;
-    color: #171717;
-    background: #ffffff;
+    font-family: 'Inter', Arial, sans-serif; /* Sets the text font */
+    background: #ffffff;    /* White page background */
+    color: #080808;          /* Default text color */
 }
 
-/* Split the page into two sides using CSS Grid */
+/* Main container: divides the page into left and right panels */
 .login-page {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    min-height: 100vh; /* Ensures the page is at least as tall as the browser window */
-    overflow: hidden;
+    width: 100%;             /* Takes the full available width */
+    min-height: 100vh;       /* Minimum height is the full screen height */
+    display: grid;           /* Uses CSS Grid for layout */
+    grid-template-columns: 1fr 1fr; /* Creates two equal-width columns */
+    overflow: hidden;        /* Hides content that extends outside the container */
 }
 
-/* Left side: login form */
+/* ==================== LEFT PANEL ==================== */
+
 .login-panel {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    padding: 40px 7%;
-    background: #ffffff;
-    min-width: 0; /* Allows the panel to shrink without overflowing its Grid container */
-    min-height: 100vh; /* Ensures the panel is at least as tall as the browser window */
+    position: relative;      /* Allows child elements to be positioned relative to this panel */
+    min-width: 0;            /* Allows this grid item to shrink without forcing horizontal overflow */
+    min-height: 100vh;       /* Ensures the left panel is at least as tall as the screen */
+    background: #fff;        /* White background */
+    display: flex;           /* Uses Flexbox to arrange child elements */
+    flex-direction: column;  /* Arranges children vertically */
 }
 
-/* Brand logo and name */
+/* Logo and brand name */
 .brand {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 21px;
-    font-weight: 700;
-    letter-spacing: -0.7px;
+    position: absolute;      /* Positions the brand independently of normal document flow */
+    top: 9.5%;                /* Places it 9.5% from the top of the panel */
+    left: 50%;                /* Moves its left edge to the horizontal center */
+    transform: translateX(-50%); /* Centers the brand horizontally */
+    width: min(78%, 480px);  /* Uses 78% width, but never exceeds 480px */
+    display: flex;           /* Places icon and text side by side */
+    align-items: center;     /* Vertically centers icon and text */
+    gap: 7px;                /* Adds space between icon and text */
+    font-size: 16px;         /* Text size */
+    font-weight: 700;        /* Bold text */
+    letter-spacing: -0.6px;  /* Reduces spacing between letters */
 }
 
 .brand-icon {
-    width: 24px;
-    height: 23px;
-    object-fit: contain;
+    width: 24px;             /* Icon width */
+    height: 23px;            /* Icon height */
 }
 
-/* Center the login content */
+/* Login heading, description, and form container */
 .login-content {
-    width: 100%;
-    max-width: 390px;
-    margin: auto;
-    padding: 45px 0;
+    width: min(70%, 450px);  /* Uses 70% width, with a maximum of 450px */
+    margin: auto;            /* Centers the content horizontally and vertically using Flexbox */
+    padding-top: 50px;       /* Adds space above the content */
+}
+
+.eyebrow {
+    font-size: 13px;         /* Small introductory text size */
+    font-weight: 500;        /* Medium font weight */
+    margin-bottom: 12px;     /* Space below the text */
 }
 
 .login-content h1 {
-    font-size: 32px;
-    font-weight: 700;
-    letter-spacing: -1.2px;
-    margin-bottom: 10px;
+    font-size: clamp(25px, 2.05vw, 32px); /* Responsive font size between 25px and 32px */
+    font-weight: 700;        /* Bold heading */
+    line-height: 1.25;       /* Space between heading lines */
+    letter-spacing: -1.15px; /* Reduces letter spacing */
+    white-space: nowrap;     /* Prevents heading text from wrapping onto another line */
 }
 
-.subtitle {
-    color: #777777;
-    font-size: 14px;
-    line-height: 1.6;
-    margin-bottom: 32px;
+.description {
+    margin-top: 12px;        /* Space above the description */
+    margin-bottom: 28px;     /* Space below the description */
+    font-size: 14px;         /* Description text size */
+    line-height: 1.5;        /* Improves readability */
+    color: #151515;           /* Description text color */
 }
 
 /* Form layout */
 .login-form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+    display: flex;           /* Uses Flexbox */
+    flex-direction: column;  /* Stacks form fields vertically */
+    width: 100%;             /* Takes the full width of its parent */
 }
 
 .form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 9px;
+    display: flex;           /* Uses Flexbox for label and input */
+    flex-direction: column;  /* Places label above input */
+    margin-bottom: 16px;     /* Space between form fields */
 }
 
 .form-group label {
-    font-size: 13px;
-    font-weight: 600;
+    font-size: 11px;         /* Label text size */
+    font-weight: 600;        /* Semi-bold label */
+    margin-bottom: 7px;      /* Space between label and input */
 }
 
 .form-group input {
-    width: 100%;
-    height: 48px;
-    padding: 0 14px;
-    border: 1px solid #dedede;
-    border-radius: 8px;
-    outline: none;
-    font-family: inherit;
-    font-size: 14px;
-    background: #ffffff;
-    transition: border-color 0.2s, box-shadow 0.2s;
-}
-
-.form-group input:focus {
-    border-color: #7456f5;
-    box-shadow: 0 0 0 3px rgba(116, 86, 245, 0.1);
+    width: 100%;             /* Input fills the available parent width */
+    height: 41px;            /* Fixed input height */
+    border: 1px solid #e4e6e9; /* Light gray border */
+    border-radius: 10px;     /* Rounded corners */
+    background: #fff;        /* White input background */
+    padding: 0 15px;         /* Horizontal space inside the input */
+    font-family: inherit;    /* Uses the font inherited from the parent */
+    font-size: 11px;         /* Input text size */
+    color: #222;              /* Input text color */
+    outline: none;            /* Removes the default focus outline */
 }
 
 .form-group input::placeholder {
-    color: #aaaaaa;
+    color: #a6a6a6;           /* Placeholder text color */
 }
 
-/* Forgot password link */
-.forgot-password {
-    display: block;
-    text-align: right;
-    margin-top: -8px;
-    color: #7456f5;
-    text-decoration: none;
-    font-size: 12px;
-    font-weight: 500;
-}
-
-/* Main submit button */
+/* Main sign-in button */
 .submit-button {
-    width: 100%;
-    height: 48px;
-    border: none;
-    border-radius: 8px;
-    background: #7354f5;
-    color: #ffffff;
-    font-family: inherit;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.2s, transform 0.2s;
+    width: 100%;             /* Full available width */
+    height: 41px;            /* Button height */
+    margin-top: 0;            /* No extra space above */
+    border: 1px solid #2448f5; /* Blue border */
+    border-radius: 24px;     /* Pill-shaped corners */
+    background: #2949ed;     /* Blue background */
+    color: #fff;              /* White text */
+    font-family: inherit;    /* Inherits the page font */
+    font-size: 13px;         /* Button text size */
+    font-weight: 600;        /* Semi-bold text */
+    cursor: default;         /* Keeps the default cursor because this is UI-only */
+    display: flex;           /* Uses Flexbox */
+    justify-content: center; /* Centers button content horizontally */
+    align-items: center;     /* Centers button content vertically */
+    gap: 5px;                /* Space between text and arrow */
 }
 
-.submit-button:hover {
-    background: #6041df;
-    transform: translateY(-1px);
-}
-
-/* Divider between login methods */
-.divider {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    margin: 24px 0;
-    color: #999999;
-    font-size: 12px;
-}
-
-.divider::before,
-.divider::after {
-    content: "";
-    flex: 1;
-    height: 1px;
-    background: #e8e8e8;
+.arrow {
+    font-size: 20px;         /* Arrow size */
+    line-height: 1;          /* Controls line height */
+    font-weight: 400;        /* Normal font weight */
 }
 
 /* Google sign-in button */
 .google-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    width: 100%;
-    height: 48px;
-    border: 1px solid #dedede;
-    border-radius: 8px;
-    background: #ffffff;
-    color: #333333;
-    font-family: inherit;
-    font-size: 14px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background 0.2s;
+    width: 100%;             /* Full available width */
+    height: 41px;            /* Button height */
+    margin-top: 15px;        /* Space above the button */
+    border: 1px solid #111;  /* Dark border */
+    border-radius: 24px;     /* Rounded pill shape */
+    background: #fff;        /* White background */
+    color: #111;              /* Dark text */
+    font-family: inherit;    /* Inherits the page font */
+    font-size: 13px;         /* Text size */
+    font-weight: 700;        /* Bold text */
+    display: flex;           /* Uses Flexbox */
+    justify-content: center; /* Centers content horizontally */
+    align-items: center;     /* Centers content vertically */
+    gap: 8px;                 /* Space between Google icon and text */
+    cursor: default;         /* UI-only; no click functionality */
 }
 
-.google-button:hover {
-    background: #f8f8f8;
+.google-icon {
+    font-family: Arial, sans-serif; /* Uses Arial for the icon */
+    font-size: 19px;         /* Icon size */
+    font-weight: 800;        /* Heavy text weight */
+    background: conic-gradient(
+        from -45deg,
+        #4285f4 0deg 90deg,
+        #34a853 90deg 180deg,
+        #fbbc05 180deg 255deg,
+        #ea4335 255deg 315deg,
+        #4285f4 315deg
+    );                       /* Creates Google's multicolor gradient */
+    color: transparent;      /* Hides the original text color */
+    background-clip: text;   /* Applies the gradient to the text itself */
 }
 
-.google-button img {
-    width: 18px;
-    height: 18px;
-    object-fit: contain;
-}
+/* ==================== RIGHT PANEL ==================== */
 
-/* Bottom text */
-.signup-text {
-    margin-top: 28px;
-    text-align: center;
-    color: #777777;
-    font-size: 13px;
-}
-
-.signup-text a {
-    color: #7354f5;
-    font-weight: 600;
-    text-decoration: none;
-}
-
-/* Right side: decorative analytics illustration */
 .art-panel {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    min-width: 0; /* Allows the art panel to shrink without overflowing its Grid container */
-    min-height: 100vh; /* Ensures the art panel is at least as tall as the browser window */
-    background: linear-gradient(135deg, #f4f0ff 0%, #e9e4ff 50%, #f8f6ff 100%);
+    min-width: 0;            /* Allows this grid item to shrink without forcing overflow */
+    min-height: 100vh;       /* Makes the panel at least as tall as the screen */
+    position: relative;      /* Establishes a positioning context for artwork */
+    overflow: hidden;        /* Hides artwork extending beyond the panel */
+    background:
+        radial-gradient(
+            ellipse at 35% 70%,
+            #e6efff 0%,
+            transparent 60%
+        ),                   /* Adds a soft blue glow */
+        linear-gradient(
+            145deg,
+            #dceaff 0%,
+            #edf4ff 45%,
+            #dce7f7 100%
+        );                   /* Adds a diagonal light-blue background */
 }
 
-/* Soft background glow */
-.art-panel::before {
-    content: "";
-    position: absolute;
-    width: 480px;
-    height: 480px;
-    border-radius: 50%;
-    background: radial-gradient(
-        circle,
-        rgba(147, 116, 255, 0.25),
-        rgba(147, 116, 255, 0)
-    );
+/* ==================== DASHBOARD CARDS ==================== */
+
+.dashboard {
+    position: absolute;      /* Positions the dashboard inside the right panel */
+    top: 2.5%;                /* Space from the top */
+    left: 6%;                 /* Space from the left */
+    right: 6%;                /* Space from the right */
+    display: grid;           /* Uses CSS Grid */
+    grid-template-columns: 1fr 1.04fr; /* Two columns with slightly different widths */
+    gap: 10px;                /* Space between dashboard columns */
+    align-items: start;      /* Aligns columns at the top */
+    z-index: 5;               /* Places dashboard above lower artwork */
 }
 
-/* Analytics dashboard card */
-.dashboard-card {
-    position: relative;
-    z-index: 5;
-    width: 78%;
-    max-width: 460px;
-    padding: 28px;
-    border: 1px solid rgba(255, 255, 255, 0.8);
-    border-radius: 20px;
-    background: rgba(255, 255, 255, 0.88);
-    box-shadow: 0 25px 70px rgba(75, 54, 150, 0.12);
-    backdrop-filter: blur(15px);
-}
-
-/* Revenue card */
 .revenue-card {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 15px;
-    padding: 18px;
-    border: 1px solid #eeeeee;
-    border-radius: 12px;
-    background: #ffffff;
-    min-width: 0; /* Allows the card to shrink inside its parent without overflowing */
+    min-width: 0;            /* Allows the card to shrink within its grid column */
+    padding: 18px 20px 19px; /* Inner spacing: top, horizontal, bottom */
+    border: 1px solid rgba(255, 255, 255, 0.95); /* Nearly white border */
+    border-radius: 10px;     /* Rounded corners */
+    background: rgba(255, 255, 255, 0.18); /* Transparent white background */
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12); /* Subtle inner highlight */
 }
 
-.revenue-info p {
-    color: #888888;
-    font-size: 12px;
-    margin-bottom: 8px;
+.card-heading {
+    font-size: 15px;         /* Card heading size */
+    margin-bottom: 5px;      /* Space below heading */
 }
 
-.revenue-info h2 {
-    font-size: 25px;
-    font-weight: 700;
-    letter-spacing: -0.8px;
+.revenue-row {
+    display: flex;           /* Places revenue and growth side by side */
+    align-items: center;     /* Vertically aligns them */
+    flex-wrap: wrap;         /* Allows items to wrap if space is limited */
+    gap: 8px;                 /* Space between items */
 }
 
-.revenue-change {
-    display: inline-block;
-    margin-top: 7px;
-    color: #20a875;
-    font-size: 11px;
-    font-weight: 600;
+.revenue-row strong {
+    font-size: clamp(18px, 1.7vw, 23px); /* Responsive revenue text size */
+    letter-spacing: -0.7px;  /* Slightly tighter letters */
 }
 
-/* Small revenue chart */
-.mini-chart {
-    display: flex;
-    align-items: flex-end;
-    gap: 5px;
-    height: 55px;
+.growth {
+    color: #008c9d;           /* Teal growth text */
+    font-size: 11px;         /* Text size */
+    font-weight: 600;        /* Semi-bold */
 }
 
-.mini-chart span {
-    display: block;
-    width: 7px;
-    border-radius: 4px 4px 0 0;
-    background: #b5a5ff;
-}
-
-.mini-chart span:nth-child(1) {
-    height: 25%;
-}
-
-.mini-chart span:nth-child(2) {
-    height: 42%;
-}
-
-.mini-chart span:nth-child(3) {
-    height: 35%;
-}
-
-.mini-chart span:nth-child(4) {
-    height: 65%;
-}
-
-.mini-chart span:nth-child(5) {
-    height: 50%;
-}
-
-.mini-chart span:nth-child(6) {
-    height: 82%;
-}
-
-.mini-chart span:nth-child(7) {
-    height: 100%;
-    background: #7555f5;
-}
-
-/* Chart section */
-.chart-section {
-    margin-top: 24px;
-}
-
-.chart-heading {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 20px;
-}
-
-.chart-heading h3 {
-    font-size: 14px;
-    font-weight: 600;
-}
-
-.chart-heading span {
-    color: #999999;
-    font-size: 11px;
-}
-
-/* Pie chart created with CSS */
-.chart-content {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 28px;
-    padding: 10px 0;
+/* Pie chart and its legend */
+.chart-layout {
+    margin-top: 18px;        /* Space above chart area */
+    display: flex;           /* Places pie chart and legend side by side */
+    align-items: center;     /* Vertically aligns chart and legend */
+    justify-content: space-between; /* Distributes available space */
+    gap: 10px;                /* Space between chart and legend */
 }
 
 .pie-chart {
-    width: 125px;
-    height: 125px;
-    flex-shrink: 0;
-    border-radius: 50%;
+    width: clamp(90px, 9vw, 132px); /* Responsive width between 90px and 132px */
+    aspect-ratio: 1;          /* Keeps width and height equal, creating a circle */
+    flex-shrink: 0;           /* Prevents the chart from shrinking */
+    border-radius: 50%;      /* Makes the element circular */
     background: conic-gradient(
-        #7555f5 0% 42%,
-        #a997ff 42% 68%,
-        #d5ccff 68% 85%,
-        #eee9ff 85% 100%
-    );
-    position: relative;
+        #050505 0deg 45deg,
+        #283f9f 45deg 90deg,
+        #9ab8f9 90deg 135deg,
+        #4c66f0 135deg 315deg,
+        #050505 315deg 360deg
+    );                       /* Creates colored pie slices */
+    transform: rotate(0deg); /* Sets the chart's rotation */
 }
 
-/* White center creates a doughnut-style chart */
-.pie-chart::after {
-    content: "";
-    position: absolute;
-    width: 65px;
-    height: 65px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border-radius: 50%;
-    background: #ffffff;
-}
-
-/* Chart legend */
 .chart-legend {
-    display: flex;
-    flex-direction: column;
-    gap: 13px;
+    display: flex;           /* Uses Flexbox */
+    flex-direction: column;  /* Stacks legend entries vertically */
+    gap: 9px;                 /* Space between entries */
+    font-size: 11px;         /* Legend text size */
+    white-space: nowrap;     /* Prevents legend labels from wrapping */
 }
 
-.legend-item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: #777777;
-    font-size: 11px;
-    white-space: nowrap;
+.chart-legend > div {
+    display: flex;           /* Places each dot and label side by side */
+    align-items: center;     /* Vertically aligns dot and label */
+    gap: 7px;                 /* Space between dot and label */
 }
 
-.legend-dot {
-    width: 8px;
-    height: 8px;
-    flex-shrink: 0;
-    border-radius: 50%;
+.dot {
+    display: inline-block;   /* Allows width and height to apply */
+    width: 10px;             /* Dot width */
+    height: 10px;            /* Dot height */
+    border-radius: 50%;      /* Makes the dot circular */
 }
 
-.legend-dot.purple {
-    background: #7555f5;
+/* Individual legend colors */
+.may {
+    background: #9ab8f9;
 }
 
-.legend-dot.lavender {
-    background: #a997ff;
+.june {
+    background: #4c66f0;
 }
 
-.legend-dot.light-purple {
-    background: #d5ccff;
+.july {
+    background: #283f9f;
 }
 
-.legend-dot.pale-purple {
-    background: #eee9ff;
+.august {
+    background: #111;
 }
 
-/* Notification cards */
+/* ==================== NOTIFICATIONS ==================== */
+
+.notifications {
+    display: flex;           /* Uses Flexbox */
+    flex-direction: column;  /* Stacks notifications vertically */
+    gap: 8px;                 /* Space between notifications */
+}
+
 .notification {
-    position: absolute;
-    z-index: 10;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    min-width: 0; /* Allows the notification to shrink inside its positioned container */
-    min-height: 51px; /* Ensures the notification is at least 51 pixels tall */
-    padding: 12px 16px;
-    border: 1px solid rgba(255, 255, 255, 0.9);
-    border-radius: 12px;
-    background: rgba(255, 255, 255, 0.95);
-    box-shadow: 0 12px 35px rgba(75, 54, 150, 0.12);
+    min-width: 0;            /* Allows the notification to shrink inside its parent */
+    min-height: 51px;        /* Minimum height is 51px; it can grow if content needs more space */
+    display: flex;           /* Places avatar and text side by side */
+    align-items: center;     /* Vertically centers notification content */
+    gap: 8px;                 /* Space between avatar and text */
+    padding: 8px;             /* Inner spacing */
+    border: 1px solid rgba(255, 255, 255, 0.96); /* Light border */
+    border-radius: 10px;     /* Rounded corners */
+    background: rgba(255, 255, 255, 0.22); /* Transparent white background */
 }
 
-.notification p {
-    color: #777777;
-    font-size: 10px;
-    line-height: 1.5;
-}
-
-.notification strong {
-    display: block;
-    color: #222222;
-    font-size: 12px;
-    margin-bottom: 3px;
-}
-
-/* Notification positions */
-.notification-one {
-    top: 18%;
-    right: 7%;
-}
-
-.notification-two {
-    bottom: 17%;
-    left: 6%;
-}
-
-/* Notification icon */
-.notification-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 35px;
-    height: 35px;
-    flex-shrink: 0;
-    border-radius: 10px;
-    color: #ffffff;
-    background: #7555f5;
-    font-size: 15px;
-}
-
-/* Avatars */
 .avatar {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 30px;
-    height: 30px;
-    flex-shrink: 0;
-    border-radius: 50%;
-    color: #ffffff;
-    background: linear-gradient(135deg, #a997ff, #7555f5);
-    font-size: 11px;
-    font-weight: 600;
+    flex-shrink: 0;           /* Prevents the avatar from becoming smaller */
+    width: 29px;             /* Avatar width */
+    height: 29px;            /* Avatar height */
+    display: grid;           /* Uses Grid for centering initials */
+    place-items: center;     /* Centers initials horizontally and vertically */
+    border-radius: 50%;      /* Circular avatar */
+    font-size: 12px;         /* Initials size */
+    font-weight: 700;        /* Bold initials */
+    color: #26304b;           /* Initials color */
+    border: 1px solid #ffffff; /* White border */
 }
 
-/* Decorative geometric shapes */
-.shape-one {
-    position: absolute;
-    top: 8%;
-    left: 12%;
-    width: 80px;
-    height: 80px;
-    border-radius: 22px;
-    background: linear-gradient(135deg, #c6b9ff, #8f75fa);
-    transform: rotate(25deg);
-    opacity: 0.6;
+.avatar-one {
+    background: linear-gradient(135deg, #e6c2a7, #a77b67); /* Warm gradient */
 }
 
-.shape-two {
-    position: absolute;
-    right: 12%;
-    bottom: 8%;
-    width: 110px;
-    height: 110px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #b9a8ff, #e4dcff);
-    opacity: 0.7;
+.avatar-two {
+    background: linear-gradient(135deg, #c7ddf7, #7d91b6); /* Blue gradient */
 }
 
-.shape-three {
-    position: absolute;
-    top: 30%;
-    left: 5%;
-    width: 55px;
-    height: 55px;
-    background: linear-gradient(135deg, #e1d9ff, #9b83ff);
-    clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
-    transform: rotate(-15deg);
-    opacity: 0.8;
+.notification-text {
+    min-width: 0;            /* Allows text to shrink and be truncated if necessary */
 }
 
-.shape-four {
-    position: absolute;
-    right: 5%;
-    top: 42%;
-    width: 65px;
-    height: 65px;
-    border: 12px solid rgba(153, 128, 255, 0.3);
-    border-radius: 50%;
+.notification-text strong {
+    display: block;          /* Places the name on its own line */
+    font-size: 10px;         /* Name text size */
+    font-weight: 600;        /* Semi-bold */
+    margin-bottom: 4px;      /* Space below name */
 }
 
-.shape-five {
-    position: absolute;
-    bottom: 25%;
-    right: 15%;
-    width: 45px;
-    height: 45px;
-    background: #c8baff;
-    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-    opacity: 0.7;
+.notification-text p {
+    font-size: 8px;          /* Message text size */
+    color: #3d4658;           /* Message text color */
+    white-space: nowrap;     /* Keeps message on one line */
+    overflow: hidden;        /* Hides text that exceeds the available width */
+    text-overflow: ellipsis; /* Shows ... when text is cut off */
 }
 
-.shape-six {
-    position: absolute;
-    top: 12%;
-    left: 48%;
-    width: 30px;
-    height: 30px;
-    border-radius: 8px;
-    background: #b9a8ff;
-    transform: rotate(45deg);
-    opacity: 0.5;
+.message-icon {
+    font-size: 10px;         /* Icon text size */
+    color: #fff;              /* White icon */
+    background: #161b28;     /* Dark background */
+    padding: 1px 3px;        /* Inner spacing */
+    margin-right: 3px;       /* Space after icon */
 }
 
-/* Larger screens */
+.check-icon {
+    display: inline-grid;    /* Allows grid alignment inside inline content */
+    place-items: center;     /* Centers the checkmark */
+    width: 11px;             /* Icon width */
+    height: 11px;            /* Icon height */
+    border-radius: 50%;      /* Circular background */
+    background: #1877ee;     /* Blue background */
+    color: white;            /* White checkmark */
+    font-weight: 700;        /* Bold checkmark */
+    margin-right: 3px;       /* Space after icon */
+}
+
+/* ==================== ABSTRACT GEOMETRIC ARTWORK ==================== */
+
+.geometry {
+    position: absolute;      /* Positions artwork within the right panel */
+    left: 0;                  /* Extends to the left edge */
+    right: 0;                 /* Extends to the right edge */
+    top: 43%;                 /* Starts 43% down the panel */
+    bottom: 0;                /* Extends to the bottom edge */
+    overflow: hidden;        /* Hides shapes outside this area */
+    perspective: 800px;      /* Adds perspective for 3D-style transforms */
+}
+
+.shape {
+    position: absolute;      /* Allows each shape to be positioned independently */
+    transform-style: preserve-3d; /* Preserves 3D positioning for children */
+}
+
+/* Blue block entering from the left */
+.shape-blue {
+    left: -14%;               /* Moves part of the shape outside the left edge */
+    top: 34%;                 /* Position from the top of the artwork */
+    width: 100%;              /* Shape width */
+    height: 60%;              /* Shape height */
+    transform: skewY(-22deg) rotate(0deg); /* Slants the shape */
+    background: linear-gradient(
+        165deg,
+        #536dff 0%,
+        #8196ff 25%,
+        #253cc1 55%,
+        #111d70 100%
+    );                       /* Blue gradient */
+    border-top: 1px solid #ffffff; /* Thin white top edge */
+    box-shadow: 0 -3px 20px #5574ff35; /* Soft blue glow */
+}
+
+/* Translucent glass-like shape */
+.shape-glass {
+    left: 22%;                /* Position from left */
+    top: 17%;                 /* Position from top */
+    width: 86%;               /* Shape width */
+    height: 115%;             /* Can extend beyond the artwork's height */
+    border-top: 1px solid #ffffff; /* White top edge */
+    border-left: 1px solid #ffffff; /* White left edge */
+    background: linear-gradient(
+        130deg,
+        rgba(104, 122, 157, 0.43),
+        rgba(239, 245, 255, 0.72) 40%,
+        rgba(168, 184, 219, 0.45)
+    );                       /* Semi-transparent gradient */
+    clip-path: polygon(
+        0 17%, 100% 0, 100% 100%,
+        25% 100%, 25% 42%, 0 53%
+    );                       /* Cuts the element into an angled shape */
+}
+
+/* Lavender translucent layer */
+.shape-lavender {
+    left: 29%;
+    top: 29%;
+    width: 87%;
+    height: 105%;
+    background: linear-gradient(
+        125deg,
+        rgba(109, 132, 242, 0.58),
+        rgba(244, 247, 255, 0.8) 46%,
+        rgba(103, 124, 193, 0.7)
+    );
+    border-top: 1px solid #fff;
+    clip-path: polygon(
+        0 18%, 100% 0, 100% 100%,
+        23% 100%, 23% 44%, 0 55%
+    );
+}
+
+/* White translucent layer */
+.shape-white {
+    left: 37%;
+    top: 39%;
+    width: 86%;
+    height: 100%;
+    background: linear-gradient(
+        130deg,
+        rgba(255, 255, 255, 0.82),
+        rgba(224, 233, 249, 0.92) 48%,
+        rgba(154, 174, 213, 0.7)
+    );
+    border-top: 1px solid white;
+    clip-path: polygon(
+        0 18%, 100% 0, 100% 100%,
+        21% 100%, 21% 45%, 0 56%
+    );
+}
+
+/* Dark shape at the right edge */
+.shape-dark {
+    right: -22%;              /* Pushes part of the shape beyond the right edge */
+    top: 40%;
+    width: 60%;
+    height: 72%;
+    background: linear-gradient(
+        145deg,
+        #263249,
+        #0b1230 60%,
+        #293c7a
+    );
+    border-top: 1px solid #aebfff;
+    clip-path: polygon(
+        0 26%, 100% 0, 100% 100%,
+        20% 100%, 20% 49%, 0 61%
+    );
+}
+
+/* Dark foreground shape */
+.shape-front {
+    right: -10%;
+    top: 59%;
+    width: 56%;
+    height: 60%;
+    background: linear-gradient(
+        140deg,
+        rgba(14, 25, 67, 0.96),
+        #101831 65%,
+        #4057bb
+    );
+    border-top: 1px solid #c7d5ff;
+    clip-path: polygon(
+        0 22%, 100% 0, 100% 100%,
+        26% 100%, 26% 50%, 0 65%
+    );
+}
+
+/* ==================== RESPONSIVE LAYOUT ==================== */
+
+/* Large screens */
 @media (min-width: 1500px) {
-    .login-content {
-        max-width: 430px;
+    .login-page {
+        max-width: 1600px;    /* Prevents the page from growing beyond 1600px */
+        margin: 0 auto;       /* Centers the page horizontally */
     }
 
-    .dashboard-card {
-        max-width: 500px;
+    .login-content {
+        width: min(70%, 470px); /* Allows a slightly wider login form */
     }
 }
 
-/* Tablets and smaller laptops */
+/* Tablets and medium-sized screens */
 @media (max-width: 900px) {
-    .login-page {
-        grid-template-columns: 1fr 1fr;
+    .login-content {
+        width: 82%;            /* Gives content more room within its panel */
     }
 
-    .login-panel {
-        padding: 30px 6%;
+    .brand {
+        width: 82%;            /* Adjusts brand width */
     }
 
     .login-content h1 {
-        font-size: 28px;
+        white-space: normal;   /* Allows the heading to wrap onto multiple lines */
     }
 
-    .dashboard-card {
-        width: 88%;
-        padding: 20px;
+    .dashboard {
+        grid-template-columns: 1fr; /* Stacks dashboard cards into one column */
+        left: 5%;
+        right: 5%;
+    }
+
+    .revenue-card {
+        padding: 13px;         /* Reduces card inner spacing */
+    }
+
+    .chart-layout {
+        justify-content: flex-start; /* Aligns chart and legend to the left */
     }
 
     .pie-chart {
-        width: 100px;
-        height: 100px;
+        width: 85px;           /* Reduces pie chart size */
     }
 
-    .pie-chart::after {
-        width: 52px;
-        height: 52px;
+    .chart-legend {
+        gap: 5px;               /* Reduces space between legend entries */
     }
 
-    .chart-content {
-        gap: 16px;
+    .notifications {
+        display: none;         /* Hides notifications at this screen size */
     }
 }
 
 /* Mobile screens */
 @media (max-width: 600px) {
     .login-page {
-        grid-template-columns: 1fr;
-        overflow: visible;
+        grid-template-columns: 1fr; /* Changes layout to a single column */
     }
 
     .login-panel {
-        min-height: 100vh; /* Keeps the login panel at least as tall as the mobile browser window */
-        padding: 28px 24px;
-    }
-
-    .login-content {
-        max-width: 420px;
-    }
-
-    .art-panel {
-        display: none;
+        min-height: 100vh;     /* Keeps the login panel at least one screen tall */
     }
 
     .brand {
-        font-size: 19px;
+        top: 35px;             /* Positions brand 35px from the top */
+        width: 82%;
+    }
+
+    .login-content {
+        width: 82%;
+        padding-top: 50px;     /* Adds space above the login content */
     }
 
     .login-content h1 {
-        font-size: 28px;
+        font-size: 29px;       /* Sets mobile heading size */
+    }
+
+    .art-panel {
+        display: none;         /* Hides the right artwork on mobile */
     }
 }
