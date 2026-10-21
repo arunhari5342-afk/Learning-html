@@ -1,0 +1,87 @@
+
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>JavaScript Practice</h1>
+<p id="demo"></p>
+
+<script>
+
+
+let x = 5;
+let y = 2;
+let sum = x + y;
+
+document.getElementById("demo").innerHTML =
+    "Sum: " + sum;
+
+
+let a = 10;
+a += 5;
+
+document.getElementById("demo").innerHTML +=
+    "<br>After adding 5: " + a;
+
+let subtraction = 20 - 8;
+
+document.getElementById("demo").innerHTML +=
+    "<br>Subtraction: " + subtraction;
+
+
+let multiplication = 4 * 3;
+
+document.getElementById("demo").innerHTML +=
+    "<br>Multiplication: " + multiplication;
+
+
+let division = 20 / 4;
+
+document.getElementById("demo").innerHTML +=
+    "<br>Division: " + division;
+
+
+let age = 20;
+
+if (age >= 18) {
+    document.getElementById("demo").innerHTML +=
+        "<br>Eligible to vote";
+} else {
+    document.getElementById("demo").innerHTML +=
+        "<br>Not eligible to vote";
+}
+
+
+let p = 10;
+let q = 10;
+
+document.getElementById("demo").innerHTML +=
+    "<br>Are p and q equal? " + (p === q);
+
+
+document.getElementById("demo").innerHTML +=
+    "<br>Numbers: ";
+
+for (let i = 1; i <= 5; i++) {
+    document.getElementById("demo").innerHTML +=
+        i + " ";
+}
+
+
+function greet() {
+    return "Hello, JavaScript!";
+}
+
+document.getElementById("demo").innerHTML +=
+    "<br>" + greet();
+
+
+let name = "javascript";
+
+document.getElementById("demo").innerHTML +=
+    "<br>Uppercase: " + name.toUpperCase();
+
+</script>
+
+</body>
+</html>
