@@ -1,4 +1,3 @@
-
 * {
     margin: 0;
     padding: 0;
@@ -6,15 +5,19 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: "Inter", sans-serif;
     background: #f8f7f4;
 }
+
+
 
 .login-page {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    
+    min-height: 100vh;
 }
+
+
 
 .login-panel {
     display: flex;
@@ -47,6 +50,8 @@ body {
     line-height: 1.6;
 }
 
+
+
 form label {
     display: block;
     margin: 18px 0 8px;
@@ -55,18 +60,58 @@ form label {
     color: #374151;
 }
 
+
+
 form input {
     width: 100%;
     padding: 14px;
     border: 1px solid #d1d5db;
     border-radius: 8px;
     font-size: 15px;
+    font-family: inherit;
     outline: none;
 }
 
 form input:focus {
     border-color: #2563eb;
 }
+
+
+
+.password-rules {
+    list-style: none;
+    padding: 0;
+    margin: 14px 0 20px;
+    font-size: 13px;
+    color: #6b7280;
+}
+
+.password-rules li {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin-bottom: 10px;
+}
+
+.rule-icon {
+    width: 18px;
+    height: 18px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #d1d5db;
+    border-radius: 50%;
+    font-size: 11px;
+    flex-shrink: 0;
+    color: #9ca3af;
+}
+
+.password-rules li.valid .rule-icon {
+    color: #16a34a;
+    border-color: #16a34a;
+}
+
+
 
 form button {
     width: 100%;
@@ -85,6 +130,37 @@ form button:hover {
     background: #1047b0;
 }
 
+
+
+.signup-text,
+.login-text {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 14px;
+    color: #6b7280;
+}
+
+.signup-text a,
+.login-text a {
+    color: #1558d6;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.signup-text a:hover,
+.login-text a:hover {
+    text-decoration: underline;
+}
+
+
+
+#message,
+#register-message {
+    margin-top: 12px;
+    font-size: 14px;
+}
+
+
 .note {
     text-align: center;
     margin-top: 28px;
@@ -100,22 +176,18 @@ form button:hover {
     background-position: center;
     background-repeat: no-repeat;
 
-     min-height: 100vh;
+    min-height: 100vh;
     padding: 50px;
 
     display: flex;
     flex-direction: column;
-
-    
     justify-content: flex-end;
     align-items: flex-start;
 }
 
-
 .visual-content {
     max-width: 400px;
     color: #172033;
-    text-shadow: none;
 }
 
 .visual-content h2 {
@@ -126,4 +198,72 @@ form button:hover {
 .visual-content p {
     font-size: 16px;
     line-height: 1.7;
+}
+
+
+
+.profile-details {
+    margin-top: 25px;
+    padding: 20px;
+    background: #f3f4f6;
+    border-radius: 10px;
+}
+
+.profile-details h2 {
+    margin-bottom: 15px;
+    font-size: 20px;
+    color: #172033;
+}
+
+.profile-details p {
+    margin-bottom: 10px;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+
+
+#logout-button {
+    width: 100%;
+    padding: 15px;
+    margin-top: 25px;
+    border: none;
+    border-radius: 8px;
+    background: #1558d6;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#logout-button:hover {
+    background: #1047b0;
+}
+
+
+
+@media (max-width: 768px) {
+
+    .login-page {
+        grid-template-columns: 1fr;
+    }
+
+    .login-panel {
+        width: 100%;
+        min-height: 100vh;
+        padding: 25px 20px;
+    }
+
+    .login-box h1 {
+        font-size: 30px;
+    }
+
+    .subtitle {
+        font-size: 26px;
+    }
+
+    .visual-panel {
+        display: none;
+    }
+
 }

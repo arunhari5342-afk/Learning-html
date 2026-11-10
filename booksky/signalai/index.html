@@ -1,28 +1,39 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SignalAI</title>
+
+    <title>SignalAI - Login</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
     <main class="login-page">
 
-        
         <section class="login-panel">
+
             <div class="login-box">
 
                 <h1>SignalAI</h1>
+
                 <p class="subtitle">Welcome back</p>
+
                 <p class="description">
                     Sign in to continue to your dashboard.
                 </p>
 
                 <form id="login-form">
+
                     <label for="email">Email address</label>
+
                     <input
                         type="email"
                         id="email"
@@ -31,6 +42,7 @@
                     >
 
                     <label for="password">Password</label>
+
                     <input
                         type="password"
                         id="password"
@@ -38,30 +50,67 @@
                         required
                     >
 
+                    <ul class="password-rules">
+
+                        <li id="length-rule">
+                            <span class="rule-icon">○</span>
+                            At least 8 characters
+                        </li>
+
+                        <li id="upper-rule">
+                            <span class="rule-icon">○</span>
+                            One uppercase letter (A-Z)
+                        </li>
+
+                        <li id="lower-rule">
+                            <span class="rule-icon">○</span>
+                            One lowercase letter (a-z)
+                        </li>
+
+                        <li id="number-rule">
+                            <span class="rule-icon">○</span>
+                            One number (0-9)
+                        </li>
+
+                    </ul>
+
                     <button type="submit">Sign in</button>
+
                     <p id="message"></p>
+
                 </form>
+
+                <p class="signup-text">
+                    Don't have an account?
+                    <a href="register.html">Create account</a>
+                </p>
 
                 <p class="note">
                     Your AI insights, all in one place.
                 </p>
 
             </div>
+
         </section>
 
-        
         <section class="visual-panel">
+
             <div class="visual-content">
+
                 <h2>Turn data into insights.</h2>
+
                 <p>
-                    Discover patterns, track performance,
-                    and make smarter decisions with SignalAI.
+                    Discover patterns, track performance, and make smarter
+                    decisions with SignalAI.
                 </p>
+
             </div>
+
         </section>
 
     </main>
 
     <script src="script.js"></script>
+
 </body>
 </html>
