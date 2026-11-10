@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SignalAI - Create Account</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <main class="login-page">
+
+        <section class="login-panel">
+
+            <div class="login-box">
+
+                <h1>SignalAI</h1>
+
+                <p class="subtitle">Create your account</p>
+
+                <p class="description">
+                    Sign up to get started with SignalAI.
+                </p>
+
+                <form id="register-form">
+
+                    <label for="full-name">Full name</label>
+
+                    <input
+                        type="text"
+                        id="full-name"
+                        placeholder="Enter your full name"
+                        required
+                    >
+
+                    <label for="register-email">Email address</label>
+
+                    <input
+                        type="email"
+                        id="register-email"
+                        placeholder="Enter your email address"
+                        required
+                    >
+
+                    <label for="register-password">Password</label>
+
+                    <input
+                        type="password"
+                        id="register-password"
+                        placeholder="Create a password"
+                        required
+                    >
+
+                    <ul class="password-rules">
+
+                        <li id="register-length-rule">
+                            <span class="rule-icon">○</span>
+                            At least 8 characters
+                        </li>
+
+                        <li id="register-upper-rule">
+                            <span class="rule-icon">○</span>
+                            One uppercase letter (A-Z)
+                        </li>
+
+                        <li id="register-lower-rule">
+                            <span class="rule-icon">○</span>
+                            One lowercase letter (a-z)
+                        </li>
+
+                        <li id="register-number-rule">
+                            <span class="rule-icon">○</span>
+                            One number (0-9)
+                        </li>
+
+                    </ul>
+
+                    <label for="confirm-password">Confirm password</label>
+
+                    <input
+                        type="password"
+                        id="confirm-password"
+                        placeholder="Confirm your password"
+                        required
+                    >
+
+                    <button type="submit">Create account</button>
+
+                    <p id="register-message"></p>
+
+                </form>
+
+                <p class="login-text">
+                    Already have an account?
+                    <a href="index.html">Sign in</a>
+                </p>
+
+                <p class="note">
+                    Your AI insights, all in one place.
+                </p>
+
+            </div>
+
+        </section>
+
+        <section class="visual-panel">
+
+            <div class="visual-content">
+
+                <h2>Turn data into insights.</h2>
+
+                <p>
+                    Discover patterns, track performance, and make smarter
+                    decisions with SignalAI.
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="register.js"></script>
+
+</body>
+</html>
