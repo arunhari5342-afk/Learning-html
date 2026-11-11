@@ -7,7 +7,7 @@
     <title>SignalAI - Create Account</title>
 
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter"
         rel="stylesheet"
     >
 
@@ -51,6 +51,7 @@
                     >
 
                     <label for="register-password">Password</label>
+                     <div class="password-field">
 
                     <input
                         type="password"
@@ -58,6 +59,17 @@
                         placeholder="Create a password"
                         required
                     >
+
+                     <button
+                            type="button"
+                            class="toggle-password"
+                            id="toggle-register-password"
+                             aria-label="Show password"
+                        >
+                            👁
+                        </button>
+
+                    </div>
 
                     <ul class="password-rules">
 
@@ -84,6 +96,7 @@
                     </ul>
 
                     <label for="confirm-password">Confirm password</label>
+                    <div class="password-field">
 
                     <input
                         type="password"
@@ -91,6 +104,17 @@
                         placeholder="Confirm your password"
                         required
                     >
+
+                     <button
+        type="button"
+        class="toggle-password"
+        id="toggle-confirm-password"
+        aria-label="Show confirm password"
+    >
+        👁
+    </button>
+
+</div>
 
                     <button type="submit">Create account</button>
 
