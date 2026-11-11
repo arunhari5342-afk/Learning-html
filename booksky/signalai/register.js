@@ -7,6 +7,37 @@ const confirmPassword = document.getElementById("confirm-password");
 
 const registerMessage = document.getElementById("register-message");
 
+function addPasswordToggle(passwordField, toggleButton) {
+
+    toggleButton.addEventListener("click", function () {
+
+        if (passwordField.type === "password") {
+
+            passwordField.type = "text";
+
+            toggleButton.textContent = "👁️‍🗨️";
+
+        } else {
+
+            passwordField.type = "password";
+
+            toggleButton.textContent = "👁";
+
+        }
+
+    });
+
+}
+
+const toggleRegisterPassword =
+    document.getElementById("toggle-register-password");
+
+const toggleConfirmPassword =
+    document.getElementById("toggle-confirm-password");
+
+addPasswordToggle(registerPassword, toggleRegisterPassword);
+
+addPasswordToggle(confirmPassword, toggleConfirmPassword);
 
 function updateRule(id, isValid) {
 
