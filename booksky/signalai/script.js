@@ -1,38 +1,29 @@
 
+
 const form = document.getElementById("login-form");
-
 const email = document.getElementById("email");
-
 const password = document.getElementById("password");
-
 const message = document.getElementById("message");
-
 const togglePassword = document.getElementById("toggle-password");
 
 
 
 
-togglePassword.addEventListener("click", function () {
+if (togglePassword) {
+    togglePassword.addEventListener("click", function () {
 
-    if (password.type === "password") {
+        if (password.type === "password") {
+            password.type = "text";
+            togglePassword.textContent = "👁️‍🗨️";
+            togglePassword.setAttribute("aria-label", "Hide password");
+        } else {
+            password.type = "password";
+            togglePassword.textContent = "👁";
+            togglePassword.setAttribute("aria-label", "Show password");
+        }
 
-        password.type = "text";
-
-        togglePassword.textContent = "👁️‍🗨️";
-
-        togglePassword.setAttribute("aria-label", "Hide password");
-
-    } else {
-
-        password.type = "password";
-
-        togglePassword.textContent = "👁";
-
-        togglePassword.setAttribute("aria-label", "Show password");
-
-    }
-
-});
+    });
+}
 
 
 
@@ -41,20 +32,25 @@ function updateRule(id, isValid) {
 
     const rule = document.getElementById(id);
 
+    if (!rule) {
+        return;
+    }
+
     const icon = rule.querySelector(".rule-icon");
 
     if (isValid) {
-
         rule.classList.add("valid");
 
-        icon.textContent = "✓";
+        if (icon) {
+            icon.textContent = "✓";
+        }
 
     } else {
-
         rule.classList.remove("valid");
 
-        icon.textContent = "○";
-
+        if (icon) {
+            icon.textContent = "○";
+        }
     }
 
 }
@@ -67,11 +63,8 @@ function checkPassword() {
     const value = password.value;
 
     updateRule("length-rule", value.length >= 8);
-
     updateRule("upper-rule", /[A-Z]/.test(value));
-
     updateRule("lower-rule", /[a-z]/.test(value));
-
     updateRule("number-rule", /[0-9]/.test(value));
 
 }
@@ -79,57 +72,59 @@ function checkPassword() {
 
 
 
-password.addEventListener("input", function () {
+if (password) {
+    password.addEventListener("input", function () {
 
-    checkPassword();
-
-    message.textContent = "";
-
-});
-
-
-
-
-email.addEventListener("input", function () {
-
-    message.textContent = "";
-
-});
-
-
-
-
-form.addEventListener("submit", function (event) {
-
-    event.preventDefault();
-
-    const emailValue = email.value.trim().toLowerCase();
-
-    const passwordValue = password.value;
-
-    let accounts = JSON.parse(localStorage.getItem("signalAIAccounts")) || [];
-
-    const matchedAccount = accounts.find(function (account) {
-
-        return account.email === emailValue &&
-               account.password === passwordValue;
+        checkPassword();
+        message.textContent = "";
 
     });
+}
 
-    if (matchedAccount) {
 
-        showDashboard(matchedAccount);
 
-    } else {
 
-        message.textContent = "Invalid email or password.";
+if (email) {
+    email.addEventListener("input", function () {
+        message.textContent = "";
+    });
+}
 
-        message.style.color = "red";
 
-    }
 
-});
 
+if (form) {
+    form.addEventListener("submit", function (event) {
+
+        event.preventDefault();
+
+        const emailValue = email.value.trim().toLowerCase();
+        const passwordValue = password.value;
+
+        let accounts = JSON.parse(
+            localStorage.getItem("signalAIAccounts")
+        ) || [];
+
+        const matchedAccount = accounts.find(function (account) {
+
+            return account.email.toLowerCase() === emailValue &&
+                   account.password === passwordValue;
+
+        });
+
+        if (matchedAccount) {
+
+            showDashboard(matchedAccount);
+
+        } else {
+
+            message.textContent = "Invalid email or password.";
+            message.style.color = "red";
+
+        }
+
+    });
+}
 
 
 
@@ -143,7 +138,7 @@ function showDashboard(account) {
 
     page.innerHTML = `
 
-        <!-- Sidebar -->
+        <!-- SIDEBAR -->
 
         <aside class="sidebar">
 
@@ -151,13 +146,22 @@ function showDashboard(account) {
 
             <p class="menu-title">MENU</p>
 
-            <nav>
+            <nav class="sidebar-nav">
 
-                <a href="#overview" class="active">Overview</a>
+                <a href="#overview" class="active" title="Overview">
+                    <span class="sidebar-icon">O</span>
+                    <span class="sidebar-text">Overview</span>
+                </a>
 
-                <a href="#analytics">Analytics</a>
+                <a href="#analytics" title="Analytics">
+                    <span class="sidebar-icon">A</span>
+                    <span class="sidebar-text">Analytics</span>
+                </a>
 
-                <a href="#reports">Reports</a>
+                <a href="#reports" title="Reports">
+                    <span class="sidebar-icon">R</span>
+                    <span class="sidebar-text">Reports</span>
+                </a>
 
             </nav>
 
@@ -166,11 +170,8 @@ function showDashboard(account) {
                 <div class="avatar" id="profile-avatar"></div>
 
                 <div>
-
                     <p id="sidebar-name"></p>
-
                     <small>Account</small>
-
                 </div>
 
             </div>
@@ -178,12 +179,12 @@ function showDashboard(account) {
         </aside>
 
 
-        <!-- Dashboard Content -->
+        <!-- MAIN DASHBOARD CONTENT -->
 
         <main class="dashboard-content">
 
 
-            <!-- Dashboard Header -->
+            <!-- HEADER -->
 
             <header class="dashboard-header">
 
@@ -196,7 +197,7 @@ function showDashboard(account) {
                     ☰
                 </button>
 
-                <div>
+                <div class="welcome-section">
 
                     <h1 id="welcome-name"></h1>
 
@@ -214,49 +215,148 @@ function showDashboard(account) {
                     </button>
 
 
-                    <!-- Profile Menu -->
-
                     <div class="header-user-actions">
 
-                        <button
-                            type="button"
-                            id="profile-menu-toggle"
-                            aria-label="Open profile menu"
-                            aria-expanded="false"
-                        >
+
+                        <!-- NOTIFICATION CENTER -->
+
+                        <div class="notification-wrapper">
+
+                            <button
+                                type="button"
+                                id="notification-toggle"
+                                aria-label="Notifications"
+                                aria-expanded="false"
+                            >
+                                🔔
+
+                                <span
+                                    id="notification-count"
+                                    class="notification-count"
+                                >
+                                    3
+                                </span>
+
+                            </button>
+
 
                             <div
-                                class="header-profile"
-                                id="header-avatar"
-                            ></div>
+                                class="notification-dropdown"
+                                id="notification-dropdown"
+                            >
 
-                        </button>
+                                <div class="notification-header">
+
+                                    <h3>Notifications</h3>
+
+                                    <button
+                                        type="button"
+                                        id="mark-all-read"
+                                    >
+                                        Mark all as read
+                                    </button>
+
+                                </div>
 
 
-                        <div
-                            class="profile-dropdown"
-                            id="profile-dropdown"
-                        >
+                                <div class="notification-list">
 
-                            <p id="dropdown-name"></p>
+                                    <button
+                                        type="button"
+                                        class="notification-item unread"
+                                    >
 
-                            <p id="dropdown-email"></p>
+                                        <span class="notification-dot"></span>
 
-                            <hr>
+                                        <span>
+                                            <strong>New user registered</strong>
+                                            <small>A new user joined today.</small>
+                                        </span>
+
+                                    </button>
+
+
+                                    <button
+                                        type="button"
+                                        class="notification-item unread"
+                                    >
+
+                                        <span class="notification-dot"></span>
+
+                                        <span>
+                                            <strong>Revenue updated</strong>
+                                            <small>Your monthly revenue was updated.</small>
+                                        </span>
+
+                                    </button>
+
+
+                                    <button
+                                        type="button"
+                                        class="notification-item unread"
+                                    >
+
+                                        <span class="notification-dot"></span>
+
+                                        <span>
+                                            <strong>New project created</strong>
+                                            <small>A new project has been added.</small>
+                                        </span>
+
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- PROFILE DROPDOWN -->
+
+                        <div class="profile-menu-wrapper">
 
                             <button
                                 type="button"
-                                id="edit-profile-button"
+                                id="profile-menu-toggle"
+                                aria-label="Open profile menu"
+                                aria-expanded="false"
                             >
-                                Edit Profile
+
+                                <div
+                                    class="header-profile"
+                                    id="header-avatar"
+                                ></div>
+
                             </button>
 
-                            <button
-                                type="button"
-                                id="logout-button"
+
+                            <div
+                                class="profile-dropdown"
+                                id="profile-dropdown"
                             >
-                                Log out
-                            </button>
+
+                                <p id="dropdown-name"></p>
+
+                                <p id="dropdown-email"></p>
+
+                                <hr>
+
+                                <button
+                                    type="button"
+                                    id="edit-profile-button"
+                                >
+                                    Edit Profile
+                                </button>
+
+                                <button
+                                    type="button"
+                                    id="logout-button"
+                                >
+                                    Log out
+                                </button>
+
+                            </div>
 
                         </div>
 
@@ -268,89 +368,7 @@ function showDashboard(account) {
 
 
 
-            <!-- Edit Profile Popup -->
-
-            <div class="profile-modal" id="profile-modal">
-
-                <div class="profile-modal-content">
-
-                    <div class="modal-header">
-
-                        <h2>Edit Profile</h2>
-
-                        <button
-                            type="button"
-                            id="close-profile-modal"
-                        >
-                            &times;
-                        </button>
-
-                    </div>
-
-
-                    <form id="edit-profile-form">
-
-                        <div class="modal-picture-section">
-
-                            <div
-                                class="profile-picture"
-                                id="profile-picture"
-                            ></div>
-
-                            <label
-                                for="profile-picture-input"
-                                class="upload-picture-label"
-                            >
-                                Change Profile Picture
-                            </label>
-
-                            <input
-                                type="file"
-                                id="profile-picture-input"
-                                accept="image/*"
-                                hidden
-                            >
-
-                        </div>
-
-
-                        <label for="edit-name">Full Name</label>
-
-                        <input
-                            type="text"
-                            id="edit-name"
-                            required
-                        >
-
-
-                        <label for="edit-email">Email Address</label>
-
-                        <input
-                            type="email"
-                            id="edit-email"
-                            required
-                        >
-
-
-                        <p id="profile-message"></p>
-
-
-                        <button
-                            type="submit"
-                            id="save-profile-button"
-                        >
-                            Save Changes
-                        </button>
-
-                    </form>
-
-                </div>
-
-            </div>
-
-
-
-            <!-- Overview Section -->
+            <!-- OVERVIEW -->
 
             <section id="overview">
 
@@ -407,136 +425,214 @@ function showDashboard(account) {
 
 
 
-            <!-- Analytics Section -->
+            <!-- ANALYTICS -->
 
-            <section id="analytics" class="analytics-section">
+            
 
+<section id="analytics" class="analytics-section">
 
-                <div class="chart-card">
+    <!-- REVENUE CHART -->
 
-                    <h2>Revenue Analytics</h2>
+    <div class="chart-card revenue-card">
 
-                    <p>Monthly revenue overview</p>
+        <div class="chart-heading">
+            <div>
+                <h2>Revenue Analytics</h2>
+                <p>Track your revenue over time</p>
+            </div>
 
-                    <div class="bar-chart">
+            <select id="revenue-filter">
+                <option value="weekly">Weekly</option>
+                <option value="monthly" selected>Monthly</option>
+                <option value="yearly">Yearly</option>
+            </select>
+        </div>
 
-                        <div class="bar-group">
+        <div class="chart-container">
+            <canvas id="revenue-chart"></canvas>
+        </div>
 
-                            <div class="bar" style="height: 45%"></div>
-
-                            <small>Jan</small>
-
-                        </div>
-
-
-                        <div class="bar-group">
-
-                            <div class="bar" style="height: 65%"></div>
-
-                            <small>Feb</small>
-
-                        </div>
-
-
-                        <div class="bar-group">
-
-                            <div class="bar" style="height: 50%"></div>
-
-                            <small>Mar</small>
-
-                        </div>
+    </div>
 
 
-                        <div class="bar-group">
+    <!-- USER GROWTH CHART -->
 
-                            <div class="bar" style="height: 80%"></div>
+    <div class="chart-card">
 
-                            <small>Apr</small>
+        <h2>User Growth</h2>
+        <p>Monthly user registrations</p>
 
-                        </div>
+        <div class="chart-container">
+            <canvas id="users-chart"></canvas>
+        </div>
 
-
-                        <div class="bar-group">
-
-                            <div class="bar" style="height: 60%"></div>
-
-                            <small>May</small>
-
-                        </div>
+    </div>
 
 
-                        <div class="bar-group">
+    <!-- TRAFFIC SOURCES CHART -->
 
-                            <div class="bar" style="height: 95%"></div>
+    <div class="chart-card">
 
-                            <small>Jun</small>
+        <h2>Traffic Sources</h2>
+        <p>Where your visitors come from</p>
 
-                        </div>
+        <div class="chart-container doughnut-container">
+            <canvas id="traffic-chart"></canvas>
+        </div>
 
-                    </div>
-
-                </div>
-
-
-
-                <div class="chart-card">
-
-                    <h2>Performance</h2>
-
-                    <p>Overall business performance</p>
-
-                    <div class="performance-circle">
-
-                        <div>
-
-                            <h2>78%</h2>
-
-                            <small>Performance</small>
-
-                        </div>
-
-                    </div>
-
-                    <p class="performance-note">
-                        Your performance is looking good!
-                    </p>
-
-                </div>
-
-            </section>
+    </div>
 
 
+    <!-- PERFORMANCE -->
 
-            <!-- Recent Activity -->
+    <div class="chart-card">
+
+        <h2>Performance</h2>
+        <p>Overall business performance</p>
+
+        <div class="performance-circle">
+
+            <div>
+                <h2>78%</h2>
+                <small>Performance</small>
+            </div>
+
+        </div>
+
+        <p class="performance-note">
+            Your performance is looking good!
+        </p>
+
+    </div>
+
+</section>
+
+
+            <!-- REPORTS -->
 
             <section id="reports" class="bottom-section">
 
-                <h2>Recent Activity</h2>
+    <div class="reports-header">
+        <div>
+            <h2>Reports</h2>
+            <p>Download your dashboard report.</p>
+        </div>
 
-                <div class="activity-card">
+        <div class="report-actions">
+            <button type="button" id="download-csv-button">
+                Download CSV
+            </button>
 
-                    <p>New users registered</p>
+            <button type="button" id="download-pdf-button">
+                Download PDF
+            </button>
+        </div>
+    </div>
 
-                    <span>Today</span>
+    <div class="activity-card">
 
-                    <hr>
+        <h3>Recent Activity</h3>
 
-                    <p>Monthly revenue updated</p>
+        <div class="activity-item">
+            <p>New user registered</p>
+            <span>2 minutes ago</span>
+        </div>
 
-                    <span>Yesterday</span>
+        <div class="activity-item">
+            <p>Revenue report generated</p>
+            <span>1 hour ago</span>
+        </div>
 
-                    <hr>
+        <div class="activity-item">
+            <p>Project completed</p>
+            <span>Yesterday</span>
+        </div>
 
-                    <p>New project created</p>
+    </div>
 
-                    <span>2 days ago</span>
+</section>
+
+        </main>
+
+
+
+        <!-- EDIT PROFILE MODAL -->
+
+        <div class="profile-modal" id="profile-modal">
+
+            <div class="profile-modal-content">
+
+                <div class="modal-header">
+
+                    <h2>Edit Profile</h2>
+
+                    <button
+                        type="button"
+                        id="close-profile-modal"
+                        aria-label="Close"
+                    >
+                        ×
+                    </button>
 
                 </div>
 
-            </section>
+
+                <div class="modal-picture-section">
+
+                    <div
+                        class="profile-picture"
+                        id="profile-picture"
+                    ></div>
+
+                    <label
+                        for="profile-picture-input"
+                        class="upload-picture-label"
+                    >
+                        Change profile picture
+                    </label>
+
+                    <input
+                        type="file"
+                        id="profile-picture-input"
+                        accept="image/*"
+                        hidden
+                    >
+
+                </div>
 
 
-        </main>
+                <form id="edit-profile-form">
+
+                    <label for="edit-name">Full Name</label>
+
+                    <input
+                        type="text"
+                        id="edit-name"
+                        required
+                    >
+
+                    <label for="edit-email">Email Address</label>
+
+                    <input
+                        type="email"
+                        id="edit-email"
+                        required
+                    >
+
+                    <p id="profile-message"></p>
+
+                    <button
+                        type="submit"
+                        id="save-profile-button"
+                    >
+                        Save Changes
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
 
     `;
 
@@ -544,40 +640,36 @@ function showDashboard(account) {
 
     
 
-
     document.getElementById("welcome-name").textContent =
         "Welcome, " + account.name + "!";
 
     document.getElementById("sidebar-name").textContent =
         account.name;
 
+    document.getElementById("dropdown-name").textContent =
+        account.name;
 
-    
-
-    const profilePicture =
-        document.getElementById("profile-picture");
-
-    const profileAvatar =
-        document.getElementById("profile-avatar");
-
-    const headerAvatar =
-        document.getElementById("header-avatar");
+    document.getElementById("dropdown-email").textContent =
+        account.email;
 
 
-    
+
+   
+
+    const profilePicture = document.getElementById("profile-picture");
+
+    const profileAvatar = document.getElementById("profile-avatar");
+
+    const headerAvatar = document.getElementById("header-avatar");
+
 
     function updateProfilePicture(imageData) {
 
         const pictureElements = [
-
             profilePicture,
-
             profileAvatar,
-
             headerAvatar
-
         ];
-
 
         pictureElements.forEach(function (element) {
 
@@ -605,47 +697,40 @@ function showDashboard(account) {
     }
 
 
-   
-
     updateProfilePicture(account.profilePicture);
 
 
 
-
-    
-
+   
 
     const profilePictureInput =
         document.getElementById("profile-picture-input");
-
 
     profilePictureInput.addEventListener("change", function () {
 
         const selectedFile = profilePictureInput.files[0];
 
         if (!selectedFile) {
-
             return;
-
         }
 
-
-        
 
         if (!selectedFile.type.startsWith("image/")) {
 
             alert("Please select an image.");
 
+            profilePictureInput.value = "";
+
             return;
 
         }
 
 
-        
-
         if (selectedFile.size > 1024 * 1024) {
 
             alert("Please select an image smaller than 1 MB.");
+
+            profilePictureInput.value = "";
 
             return;
 
@@ -654,18 +739,19 @@ function showDashboard(account) {
 
         const reader = new FileReader();
 
-
         reader.onload = function () {
 
             const imageData = reader.result;
 
-            let accounts =
-                JSON.parse(localStorage.getItem("signalAIAccounts")) || [];
+            let accounts = JSON.parse(
+                localStorage.getItem("signalAIAccounts")
+            ) || [];
 
 
             const accountIndex = accounts.findIndex(function (savedAccount) {
 
-                return savedAccount.email === account.email;
+                return savedAccount.email.toLowerCase() ===
+                       account.email.toLowerCase();
 
             });
 
@@ -679,11 +765,7 @@ function showDashboard(account) {
                     JSON.stringify(accounts)
                 );
 
-
                 account.profilePicture = imageData;
-
-
-                // Update All Profile Pictures
 
                 updateProfilePicture(imageData);
 
@@ -691,16 +773,22 @@ function showDashboard(account) {
 
         };
 
-
         reader.readAsDataURL(selectedFile);
 
     });
 
 
 
+   
 
-    
+    const editProfileButton =
+        document.getElementById("edit-profile-button");
 
+    const profileModal =
+        document.getElementById("profile-modal");
+
+    const closeProfileModal =
+        document.getElementById("close-profile-modal");
 
     const editProfileForm =
         document.getElementById("edit-profile-form");
@@ -715,15 +803,51 @@ function showDashboard(account) {
         document.getElementById("profile-message");
 
 
-    
-
     editName.value = account.name;
 
     editEmail.value = account.email;
 
 
+    
 
-   
+    editProfileButton.addEventListener("click", function () {
+
+        profileModal.classList.add("show");
+
+        editName.value = account.name;
+
+        editEmail.value = account.email;
+
+        profileMessage.textContent = "";
+
+        document.getElementById("profile-dropdown").classList.remove("show");
+
+    });
+
+
+    
+
+    closeProfileModal.addEventListener("click", function () {
+
+        profileModal.classList.remove("show");
+
+    });
+
+
+    
+
+    profileModal.addEventListener("click", function (event) {
+
+        if (event.target === profileModal) {
+
+            profileModal.classList.remove("show");
+
+        }
+
+    });
+
+
+    
 
     editProfileForm.addEventListener("submit", function (event) {
 
@@ -736,8 +860,7 @@ function showDashboard(account) {
 
         if (newName === "" || newEmail === "") {
 
-            profileMessage.textContent =
-                "Please fill in all fields.";
+            profileMessage.textContent = "Please fill in all fields.";
 
             profileMessage.style.color = "red";
 
@@ -746,11 +869,10 @@ function showDashboard(account) {
         }
 
 
-        let accounts =
-            JSON.parse(localStorage.getItem("signalAIAccounts")) || [];
+        let accounts = JSON.parse(
+            localStorage.getItem("signalAIAccounts")
+        ) || [];
 
-
-       
 
         const accountIndex = accounts.findIndex(function (savedAccount) {
 
@@ -770,8 +892,6 @@ function showDashboard(account) {
 
         }
 
-
-       
 
         const emailAlreadyUsed = accounts.some(function (savedAccount, index) {
 
@@ -806,20 +926,9 @@ function showDashboard(account) {
         );
 
 
-       
-
         account.name = newName;
 
         account.email = newEmail;
-
-
-        
-
-        document.getElementById("dropdown-name").textContent =
-            account.name;
-
-        document.getElementById("dropdown-email").textContent =
-            account.email;
 
 
         
@@ -830,8 +939,14 @@ function showDashboard(account) {
         document.getElementById("sidebar-name").textContent =
             account.name;
 
+        document.getElementById("dropdown-name").textContent =
+            account.name;
 
-       
+        document.getElementById("dropdown-email").textContent =
+            account.email;
+
+
+        
 
         updateProfilePicture(account.profilePicture);
 
@@ -841,148 +956,15 @@ function showDashboard(account) {
 
         profileMessage.style.color = "green";
 
-
-        
-
-        profileModal.classList.remove("show");
-
     });
-
-
-
-
-    
-
-
-    const profileMenuToggle =
-        document.getElementById("profile-menu-toggle");
-
-    const profileDropdown =
-        document.getElementById("profile-dropdown");
-
-
-    
-
-    document.getElementById("dropdown-name").textContent =
-        account.name;
-
-    document.getElementById("dropdown-email").textContent =
-        account.email;
-
-
-    
-
-    profileMenuToggle.addEventListener("click", function () {
-
-        profileDropdown.classList.toggle("show");
-
-        if (profileDropdown.classList.contains("show")) {
-
-            profileMenuToggle.setAttribute("aria-expanded", "true");
-
-        } else {
-
-            profileMenuToggle.setAttribute("aria-expanded", "false");
-
-        }
-
-    });
-
-
-    
-
-    document.addEventListener("click", function (event) {
-
-        if (
-            !profileMenuToggle.contains(event.target) &&
-            !profileDropdown.contains(event.target)
-        ) {
-
-            profileDropdown.classList.remove("show");
-
-            profileMenuToggle.setAttribute("aria-expanded", "false");
-
-        }
-
-    });
-
-
-
-
-    
-
-
-    const editProfileButton =
-        document.getElementById("edit-profile-button");
-
-    const profileModal =
-        document.getElementById("profile-modal");
-
-    const closeProfileModal =
-        document.getElementById("close-profile-modal");
-
-
-   
-
-    editProfileButton.addEventListener("click", function () {
-
-        profileDropdown.classList.remove("show");
-
-        profileMenuToggle.setAttribute("aria-expanded", "false");
-
-        profileMessage.textContent = "";
-
-        profileModal.classList.add("show");
-
-    });
-
-
-    
-
-    closeProfileModal.addEventListener("click", function () {
-
-        profileModal.classList.remove("show");
-
-    });
-
-
-    
-
-    profileModal.addEventListener("click", function (event) {
-
-        if (event.target === profileModal) {
-
-            profileModal.classList.remove("show");
-
-        }
-
-    });
-
-
-    
-
-    document.addEventListener("keydown", function (event) {
-
-        if (event.key === "Escape") {
-
-            profileModal.classList.remove("show");
-
-        }
-
-    });
-
 
 
 
    
 
+    const themeToggle = document.getElementById("theme-toggle");
 
-    const themeToggle =
-        document.getElementById("theme-toggle");
-
-
-    const savedTheme =
-        localStorage.getItem("signalAITheme");
+    const savedTheme = localStorage.getItem("signalAITheme");
 
 
     if (savedTheme === "dark") {
@@ -990,6 +972,10 @@ function showDashboard(account) {
         page.classList.add("dark-mode");
 
         themeToggle.textContent = "☀️ Light Mode";
+
+    } else {
+
+        themeToggle.textContent = "🌙 Dark Mode";
 
     }
 
@@ -1017,12 +1003,9 @@ function showDashboard(account) {
 
 
 
+   
 
-    
-
-
-    const sidebarToggle =
-        document.getElementById("sidebar-toggle");
+    const sidebarToggle = document.getElementById("sidebar-toggle");
 
 
     sidebarToggle.addEventListener("click", function () {
@@ -1048,11 +1031,586 @@ function showDashboard(account) {
 
 
 
+  
+
+    const sidebarLinks = document.querySelectorAll(".sidebar-nav a");
+
+
+    sidebarLinks.forEach(function (link) {
+
+        link.addEventListener("click", function () {
+
+            sidebarLinks.forEach(function (item) {
+
+                item.classList.remove("active");
+
+            });
+
+            link.classList.add("active");
+
+        });
+
+    });
+
+
 
    
 
+    const profileMenuToggle =
+        document.getElementById("profile-menu-toggle");
 
-    document.getElementById("logout-button").addEventListener("click", function () {
+    const profileDropdown =
+        document.getElementById("profile-dropdown");
+
+
+    profileMenuToggle.addEventListener("click", function (event) {
+
+        event.stopPropagation();
+
+        profileDropdown.classList.toggle("show");
+
+
+        if (profileDropdown.classList.contains("show")) {
+
+            profileMenuToggle.setAttribute("aria-expanded", "true");
+
+        } else {
+
+            profileMenuToggle.setAttribute("aria-expanded", "false");
+
+        }
+
+    });
+
+
+
+
+
+    const notificationToggle =
+        document.getElementById("notification-toggle");
+
+    const notificationDropdown =
+        document.getElementById("notification-dropdown");
+
+    const notificationCount =
+        document.getElementById("notification-count");
+
+    const notificationItems =
+        document.querySelectorAll(".notification-item");
+
+    const markAllRead =
+        document.getElementById("mark-all-read");
+
+
+    
+
+    function updateNotificationCount() {
+
+        const unreadNotifications =
+            document.querySelectorAll(".notification-item.unread");
+
+        notificationCount.textContent =
+            unreadNotifications.length;
+
+
+        if (unreadNotifications.length === 0) {
+
+            notificationCount.style.display = "none";
+
+        } else {
+
+            notificationCount.style.display = "flex";
+
+        }
+
+    }
+
+
+    
+
+    notificationToggle.addEventListener("click", function (event) {
+
+        event.stopPropagation();
+
+        notificationDropdown.classList.toggle("show");
+
+
+        if (notificationDropdown.classList.contains("show")) {
+
+            notificationToggle.setAttribute("aria-expanded", "true");
+
+        } else {
+
+            notificationToggle.setAttribute("aria-expanded", "false");
+
+        }
+
+    });
+
+
+   
+
+    notificationItems.forEach(function (item) {
+
+        item.addEventListener("click", function () {
+
+            item.classList.remove("unread");
+
+            updateNotificationCount();
+
+        });
+
+    });
+
+
+   
+
+    markAllRead.addEventListener("click", function () {
+
+        notificationItems.forEach(function (item) {
+
+            item.classList.remove("unread");
+
+        });
+
+        updateNotificationCount();
+
+    });
+
+
+    
+
+    updateNotificationCount();
+
+
+
+    
+
+    document.addEventListener("click", function (event) {
+
+
+        
+
+        if (
+            !profileMenuToggle.contains(event.target) &&
+            !profileDropdown.contains(event.target)
+        ) {
+
+            profileDropdown.classList.remove("show");
+
+            profileMenuToggle.setAttribute("aria-expanded", "false");
+
+        }
+
+
+       
+
+        if (
+            !notificationToggle.contains(event.target) &&
+            !notificationDropdown.contains(event.target)
+        ) {
+
+            notificationDropdown.classList.remove("show");
+
+            notificationToggle.setAttribute("aria-expanded", "false");
+
+        }
+
+    });
+
+    // Download CSV Report
+
+const downloadCsvButton = document.getElementById("download-csv-button");
+
+downloadCsvButton.addEventListener("click", function () {
+
+    const reportData = [
+        ["Report", "Value"],
+        ["Total Users", "12450"],
+        ["Total Revenue", "$48,250"],
+        ["Active Projects", "24"],
+        ["Growth Rate", "18.6%"],
+        ["Performance", "78%"],
+        [],
+        ["Recent Activity"],
+        ["New user registered", "2 minutes ago"],
+        ["Revenue report generated", "1 hour ago"],
+        ["Project completed", "Yesterday"]
+    ];
+
+    let csvContent = "";
+
+    reportData.forEach(function (row) {
+
+        const formattedRow = row.map(function (value) {
+
+            return '"' + String(value).replace(/"/g, '""') + '"';
+
+        });
+
+        csvContent += formattedRow.join(",") + "\n";
+
+    });
+
+    const file = new Blob([csvContent], {
+        type: "text/csv;charset=utf-8;"
+    });
+
+    const url = URL.createObjectURL(file);
+
+    const link = document.createElement("a");
+
+    link.href = url;
+    link.download = "signalai-report.csv";
+
+    document.body.appendChild(link);
+
+    link.click();
+
+    document.body.removeChild(link);
+
+    URL.revokeObjectURL(url);
+
+});
+
+
+
+
+const downloadPdfButton = document.getElementById("download-pdf-button");
+
+downloadPdfButton.addEventListener("click", function () {
+
+    const reportWindow = window.open("", "_blank");
+
+    if (!reportWindow) {
+
+        alert("Please allow popups to download the PDF report.");
+
+        return;
+
+    }
+
+    reportWindow.document.write(`
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>SignalAI Report</title>
+
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    padding: 40px;
+                    color: #333;
+                }
+
+                h1 {
+                    color: #1558d6;
+                }
+
+                h2 {
+                    margin-top: 30px;
+                }
+
+                table {
+                    width: 100%;
+                    border-collapse: collapse;
+                    margin-top: 20px;
+                }
+
+                th, td {
+                    border: 1px solid #ddd;
+                    padding: 12px;
+                    text-align: left;
+                }
+
+                th {
+                    background: #f0f4ff;
+                }
+
+                @media print {
+                    body {
+                        padding: 10px;
+                    }
+                }
+            </style>
+        </head>
+
+        <body>
+
+            <h1>SignalAI Dashboard Report</h1>
+
+            <p>Dashboard Summary</p>
+
+            <table>
+                <tr>
+                    <th>Report</th>
+                    <th>Value</th>
+                </tr>
+
+                <tr>
+                    <td>Total Users</td>
+                    <td>12,450</td>
+                </tr>
+
+                <tr>
+                    <td>Total Revenue</td>
+                    <td>$48,250</td>
+                </tr>
+
+                <tr>
+                    <td>Active Projects</td>
+                    <td>24</td>
+                </tr>
+
+                <tr>
+                    <td>Growth Rate</td>
+                    <td>18.6%</td>
+                </tr>
+
+                <tr>
+                    <td>Performance</td>
+                    <td>78%</td>
+                </tr>
+            </table>
+
+            <h2>Recent Activity</h2>
+
+            <ul>
+                <li>New user registered - 2 minutes ago</li>
+                <li>Revenue report generated - 1 hour ago</li>
+                <li>Project completed - Yesterday</li>
+            </ul>
+
+        </body>
+        </html>
+    `);
+
+    reportWindow.document.close();
+
+    reportWindow.onload = function () {
+
+        reportWindow.print();
+
+    };
+
+});
+
+
+   
+
+    const revenueCanvas = document.getElementById("revenue-chart");
+
+    const revenueFilter = document.getElementById("revenue-filter");
+
+    const revenueData = {
+
+        weekly: {
+            labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+            values: [1200, 1800, 1500, 2400, 2100, 3000, 3500]
+        },
+
+        monthly: {
+            labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+            values: [4500, 6500, 5000, 8000, 6000, 9500]
+        },
+
+        yearly: {
+            labels: ["2021", "2022", "2023", "2024", "2025", "2026"],
+            values: [25000, 32000, 40000, 38000, 52000, 65000]
+        }
+
+    };
+
+
+    const revenueChart = new Chart(revenueCanvas, {
+
+        type: "line",
+
+        data: {
+            labels: revenueData.monthly.labels,
+
+            datasets: [{
+                label: "Revenue",
+                data: revenueData.monthly.values,
+
+                borderColor: "#1558d6",
+                backgroundColor: "rgba(21, 88, 214, 0.12)",
+
+                borderWidth: 3,
+                fill: true,
+                tension: 0.4,
+
+                pointRadius: 5,
+                pointHoverRadius: 8
+            }]
+        },
+
+        options: {
+
+            responsive: true,
+            maintainAspectRatio: false,
+
+            plugins: {
+                legend: {
+                    display: false
+                },
+
+                tooltip: {
+                    callbacks: {
+                        label: function (context) {
+                            return "Revenue: $" +
+                                context.parsed.y.toLocaleString();
+                        }
+                    }
+                }
+            },
+
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+
+        }
+
+    });
+
+
+    
+
+    revenueFilter.addEventListener("change", function () {
+
+        const selectedPeriod = revenueFilter.value;
+
+        revenueChart.data.labels =
+            revenueData[selectedPeriod].labels;
+
+        revenueChart.data.datasets[0].data =
+            revenueData[selectedPeriod].values;
+
+        revenueChart.update();
+
+    });
+
+
+
+    
+
+    const usersChart = new Chart(
+        document.getElementById("users-chart"),
+        {
+
+            type: "bar",
+
+            data: {
+
+                labels: [
+                    "Jan", "Feb", "Mar",
+                    "Apr", "May", "Jun"
+                ],
+
+                datasets: [{
+
+                    label: "New Users",
+
+                    data: [120, 190, 150, 250, 220, 320],
+
+                    backgroundColor: "#1558d6",
+
+                    borderRadius: 6,
+
+                    barThickness: 25
+
+                }]
+
+            },
+
+            options: {
+
+                responsive: true,
+                maintainAspectRatio: false,
+
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+
+            }
+
+        }
+    );
+
+
+
+    
+
+    const trafficChart = new Chart(
+        document.getElementById("traffic-chart"),
+        {
+
+            type: "doughnut",
+
+            data: {
+
+                labels: [
+                    "Direct",
+                    "Social Media",
+                    "Search Engines",
+                    "Others"
+                ],
+
+                datasets: [{
+
+                    data: [35, 25, 30, 10],
+
+                    backgroundColor: [
+                        "#1558d6",
+                        "#16a34a",
+                        "#f59e0b",
+                        "#8b5cf6"
+                    ],
+
+                    borderWidth: 0,
+
+                    hoverOffset: 12
+
+                }]
+
+            },
+
+            options: {
+
+                responsive: true,
+                maintainAspectRatio: false,
+
+                plugins: {
+                    legend: {
+                        position: "bottom"
+                    }
+                },
+
+                cutout: "65%"
+
+            }
+
+        }
+    );
+
+
+
+
+   
+
+    const logoutButton = document.getElementById("logout-button");
+
+    logoutButton.addEventListener("click", function () {
 
         window.location.reload();
 
