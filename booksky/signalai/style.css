@@ -2157,6 +2157,64 @@ form button[type="submit"]:hover {
     }
 }
 
+#name-error,
+#email-error {
+    color: #dc2626;
+    font-size: 13px;
+    margin: 5px 0 12px;
+    min-height: 16px;
+}
+
+
+#change-password-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#change-password-form input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+#change-password-form p {
+    font-size: 13px;
+}
+
+#change-password-form .password-rules {
+    margin: 5px 0 10px;
+}
+
+#change-password-form .password-rules p {
+    color: #777;
+    margin: 6px 0;
+}
+
+#change-password-form .password-rules p.valid {
+    color: green;
+}
+
+#change-password-form .rule-icon {
+    margin-right: 6px;
+}
+
+#change-password-form button[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: #1558d6;
+    color: white;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+#change-password-form button[type="submit"]:hover {
+    background: #1047b0;
+}
 
 
 
