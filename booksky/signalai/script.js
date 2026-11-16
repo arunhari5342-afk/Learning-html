@@ -1,12 +1,8 @@
-
-
 const form = document.getElementById("login-form");
 const email = document.getElementById("email");
 const password = document.getElementById("password");
 const message = document.getElementById("message");
 const togglePassword = document.getElementById("toggle-password");
-
-
 
 
 if (togglePassword) {
@@ -24,8 +20,6 @@ if (togglePassword) {
 
     });
 }
-
-
 
 
 function updateRule(id, isValid) {
@@ -56,8 +50,6 @@ function updateRule(id, isValid) {
 }
 
 
-
-
 function checkPassword() {
 
     const value = password.value;
@@ -70,8 +62,6 @@ function checkPassword() {
 }
 
 
-
-
 if (password) {
     password.addEventListener("input", function () {
 
@@ -82,15 +72,11 @@ if (password) {
 }
 
 
-
-
 if (email) {
     email.addEventListener("input", function () {
         message.textContent = "";
     });
 }
-
-
 
 
 if (form) {
@@ -125,8 +111,6 @@ if (form) {
 
     });
 }
-
-
 
 
 
@@ -350,6 +334,13 @@ function showDashboard(account) {
                                 </button>
 
                                 <button
+                                  type="button"
+                                  id="change-password-button"
+                              >
+                                  Change Password
+                               </button>
+
+                                <button
                                     type="button"
                                     id="logout-button"
                                 >
@@ -427,7 +418,6 @@ function showDashboard(account) {
 
             <!-- ANALYTICS -->
 
-            
 
 <section id="analytics" class="analytics-section">
 
@@ -492,9 +482,18 @@ function showDashboard(account) {
 
         <div class="performance-circle">
 
-            <div>
-                <h2>78%</h2>
-                <small>Performance</small>
+            <div class="stats-container">
+
+                    <div class="stat-card">
+
+                        <p>Total Users</p>
+
+                        <h2>12,450</h2>
+
+                        <span>+12.5% this month</span>
+
+                    </div>
+
             </div>
 
         </div>
@@ -609,7 +608,11 @@ function showDashboard(account) {
                         type="text"
                         id="edit-name"
                         required
+                        maxlength="50"
+                        placeholder="Enter your full name"
                     >
+
+                    <p id="name-error"></p>
 
                     <label for="edit-email">Email Address</label>
 
@@ -617,7 +620,10 @@ function showDashboard(account) {
                         type="email"
                         id="edit-email"
                         required
+                        placeholder="Enter your email address"
                     >
+
+                    <p id="email-error"></p>
 
                     <p id="profile-message"></p>
 
@@ -634,12 +640,110 @@ function showDashboard(account) {
 
         </div>
 
+          <!-- CHANGE PASSWORD MODAL -->
+
+<div class="profile-modal" id="change-password-modal">
+
+    <div class="profile-modal-content">
+
+        <div class="modal-header">
+
+            <h2>Change Password</h2>
+
+            <button
+                type="button"
+                id="close-password-modal"
+                aria-label="Close"
+            >
+                ×
+            </button>
+
+        </div>
+
+        <form id="change-password-form">
+
+            <label for="current-password">
+                Current Password
+            </label>
+
+            <input
+                type="password"
+                id="current-password"
+                placeholder="Enter current password"
+                required
+            >
+
+            <p id="current-password-error"></p>
+
+
+            <label for="new-password">
+                New Password
+            </label>
+
+            <input
+                type="password"
+                id="new-password"
+                placeholder="Enter new password"
+                required
+            >
+
+            <p id="new-password-error"></p>
+
+
+            <div class="password-rules">
+
+                <p id="change-length-rule">
+                    <span class="rule-icon">○</span>
+                    At least 8 characters
+                </p>
+
+                <p id="change-upper-rule">
+                    <span class="rule-icon">○</span>
+                    One uppercase letter
+                </p>
+
+                <p id="change-lower-rule">
+                    <span class="rule-icon">○</span>
+                    One lowercase letter
+                </p>
+
+                <p id="change-number-rule">
+                    <span class="rule-icon">○</span>
+                    One number
+                </p>
+
+            </div>
+
+
+            <label for="confirm-new-password">
+                Confirm New Password
+            </label>
+
+            <input
+                type="password"
+                id="confirm-new-password"
+                placeholder="Confirm new password"
+                required
+            >
+
+            <p id="confirm-password-error"></p>
+
+            <p id="change-password-message"></p>
+
+            <button type="submit">
+                Update Password
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
     `;
 
-
-
     
-
+              
     document.getElementById("welcome-name").textContent =
         "Welcome, " + account.name + "!";
 
@@ -653,8 +757,6 @@ function showDashboard(account) {
         account.email;
 
 
-
-   
 
     const profilePicture = document.getElementById("profile-picture");
 
@@ -700,8 +802,6 @@ function showDashboard(account) {
     updateProfilePicture(account.profilePicture);
 
 
-
-   
 
     const profilePictureInput =
         document.getElementById("profile-picture-input");
@@ -779,7 +879,7 @@ function showDashboard(account) {
 
 
 
-   
+    
 
     const editProfileButton =
         document.getElementById("edit-profile-button");
@@ -799,12 +899,17 @@ function showDashboard(account) {
     const editEmail =
         document.getElementById("edit-email");
 
+    const nameError =
+        document.getElementById("name-error");
+
+    const emailError =
+        document.getElementById("email-error");
+
     const profileMessage =
         document.getElementById("profile-message");
 
 
     editName.value = account.name;
-
     editEmail.value = account.email;
 
 
@@ -815,9 +920,10 @@ function showDashboard(account) {
         profileModal.classList.add("show");
 
         editName.value = account.name;
-
         editEmail.value = account.email;
 
+        nameError.textContent = "";
+        emailError.textContent = "";
         profileMessage.textContent = "";
 
         document.getElementById("profile-dropdown").classList.remove("show");
@@ -825,7 +931,7 @@ function showDashboard(account) {
     });
 
 
-    
+   
 
     closeProfileModal.addEventListener("click", function () {
 
@@ -849,19 +955,58 @@ function showDashboard(account) {
 
     
 
+    editName.addEventListener("input", function () {
+
+        editName.value = editName.value.replace(/[^A-Za-z ]/g, "");
+
+    
+    nameError.textContent = "";
+    });
+
+
+    
+
+    editEmail.addEventListener("input", function () {
+
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (editEmail.value.trim() === "") {
+
+            emailError.textContent = "";
+
+        } else if (!emailPattern.test(editEmail.value.trim())) {
+
+            emailError.textContent =
+                "Please enter a valid email address.";
+
+        } else {
+
+            emailError.textContent = "";
+
+        }
+
+    });
+
+
+   
+
     editProfileForm.addEventListener("submit", function (event) {
 
         event.preventDefault();
 
         const newName = editName.value.trim();
-
         const newEmail = editEmail.value.trim().toLowerCase();
 
+        nameError.textContent = "";
+        emailError.textContent = "";
+        profileMessage.textContent = "";
+
+
+        
 
         if (newName === "" || newEmail === "") {
 
             profileMessage.textContent = "Please fill in all fields.";
-
             profileMessage.style.color = "red";
 
             return;
@@ -869,10 +1014,42 @@ function showDashboard(account) {
         }
 
 
+       
+
+        const namePattern = /^[A-Za-z ]+$/;
+
+        if (!namePattern.test(newName)) {
+
+            nameError.textContent =
+                "Name should contain only letters and spaces.";
+
+            return;
+
+        }
+
+
+        
+
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!emailPattern.test(newEmail)) {
+
+            emailError.textContent =
+                "Please enter a valid email address.";
+
+            return;
+
+        }
+
+
+       
+
         let accounts = JSON.parse(
             localStorage.getItem("signalAIAccounts")
         ) || [];
 
+
+       
 
         const accountIndex = accounts.findIndex(function (savedAccount) {
 
@@ -885,13 +1062,14 @@ function showDashboard(account) {
         if (accountIndex === -1) {
 
             profileMessage.textContent = "Account not found.";
-
             profileMessage.style.color = "red";
 
             return;
 
         }
 
+
+        
 
         const emailAlreadyUsed = accounts.some(function (savedAccount, index) {
 
@@ -900,8 +1078,7 @@ function showDashboard(account) {
 
         });
 
-
-        if (emailAlreadyUsed) {
+                if (emailAlreadyUsed) {
 
             profileMessage.textContent =
                 "This email is already registered.";
@@ -916,9 +1093,10 @@ function showDashboard(account) {
         
 
         accounts[accountIndex].name = newName;
-
         accounts[accountIndex].email = newEmail;
 
+
+        
 
         localStorage.setItem(
             "signalAIAccounts",
@@ -926,8 +1104,9 @@ function showDashboard(account) {
         );
 
 
-        account.name = newName;
+        
 
+        account.name = newName;
         account.email = newEmail;
 
 
@@ -946,10 +1125,10 @@ function showDashboard(account) {
             account.email;
 
 
-        
-
         updateProfilePicture(account.profilePicture);
 
+
+        
 
         profileMessage.textContent =
             "Profile updated successfully!";
@@ -960,7 +1139,333 @@ function showDashboard(account) {
 
 
 
-   
+
+const changePasswordButton =
+    document.getElementById("change-password-button");
+
+const changePasswordModal =
+    document.getElementById("change-password-modal");
+
+const closePasswordModal =
+    document.getElementById("close-password-modal");
+
+const changePasswordForm =
+    document.getElementById("change-password-form");
+
+const currentPassword =
+    document.getElementById("current-password");
+
+const newPassword =
+    document.getElementById("new-password");
+
+const confirmNewPassword =
+    document.getElementById("confirm-new-password");
+
+const currentPasswordError =
+    document.getElementById("current-password-error");
+
+const newPasswordError =
+    document.getElementById("new-password-error");
+
+const confirmPasswordError =
+    document.getElementById("confirm-password-error");
+
+const changePasswordMessage =
+    document.getElementById("change-password-message");
+
+
+
+
+changePasswordButton.addEventListener("click", function () {
+
+    changePasswordModal.classList.add("show");
+
+    document.getElementById("profile-dropdown").classList.remove("show");
+
+    currentPassword.value = "";
+    newPassword.value = "";
+    confirmNewPassword.value = "";
+
+    currentPasswordError.textContent = "";
+    newPasswordError.textContent = "";
+    confirmPasswordError.textContent = "";
+    changePasswordMessage.textContent = "";
+
+    updateChangePasswordRules();
+
+});
+
+
+
+
+closePasswordModal.addEventListener("click", function () {
+
+    changePasswordModal.classList.remove("show");
+
+});
+
+
+
+
+changePasswordModal.addEventListener("click", function (event) {
+
+    if (event.target === changePasswordModal) {
+
+        changePasswordModal.classList.remove("show");
+
+    }
+
+});
+
+
+
+
+function updateChangePasswordRule(id, isValid) {
+
+    const rule = document.getElementById(id);
+
+    const icon = rule.querySelector(".rule-icon");
+
+    if (isValid) {
+
+        rule.classList.add("valid");
+
+        icon.textContent = "✓";
+
+    } else {
+
+        rule.classList.remove("valid");
+
+        icon.textContent = "○";
+
+    }
+
+}
+
+
+
+
+function updateChangePasswordRules() {
+
+    const value = newPassword.value;
+
+    updateChangePasswordRule(
+        "change-length-rule",
+        value.length >= 8
+    );
+
+    updateChangePasswordRule(
+        "change-upper-rule",
+        /[A-Z]/.test(value)
+    );
+
+    updateChangePasswordRule(
+        "change-lower-rule",
+        /[a-z]/.test(value)
+    );
+
+    updateChangePasswordRule(
+        "change-number-rule",
+        /[0-9]/.test(value)
+    );
+
+}
+
+
+
+
+newPassword.addEventListener("input", function () {
+
+    updateChangePasswordRules();
+
+    newPasswordError.textContent = "";
+
+    changePasswordMessage.textContent = "";
+
+});
+
+
+
+
+confirmNewPassword.addEventListener("input", function () {
+
+    confirmPasswordError.textContent = "";
+
+});
+
+
+
+
+currentPassword.addEventListener("input", function () {
+
+    currentPasswordError.textContent = "";
+
+});
+
+
+
+
+changePasswordForm.addEventListener("submit", function (event) {
+
+    event.preventDefault();
+
+    currentPasswordError.textContent = "";
+    newPasswordError.textContent = "";
+    confirmPasswordError.textContent = "";
+    changePasswordMessage.textContent = "";
+
+
+    const currentValue = currentPassword.value;
+    const newValue = newPassword.value;
+    const confirmValue = confirmNewPassword.value;
+
+
+    
+
+    if (currentValue !== account.password) {
+
+        currentPasswordError.textContent =
+            "Current password is incorrect.";
+
+        return;
+
+    }
+
+
+    
+
+    if (newValue.length < 8) {
+
+        newPasswordError.textContent =
+            "Password must contain at least 8 characters.";
+
+        return;
+
+    }
+
+
+    
+
+    if (!/[A-Z]/.test(newValue)) {
+
+        newPasswordError.textContent =
+            "Password must contain an uppercase letter.";
+
+        return;
+
+    }
+
+
+    
+
+    if (!/[a-z]/.test(newValue)) {
+
+        newPasswordError.textContent =
+            "Password must contain a lowercase letter.";
+
+        return;
+
+    }
+
+
+    
+
+    if (!/[0-9]/.test(newValue)) {
+
+        newPasswordError.textContent =
+            "Password must contain a number.";
+
+        return;
+
+    }
+
+
+    
+
+    if (newValue === currentValue) {
+
+        newPasswordError.textContent =
+            "New password must be different from current password.";
+
+        return;
+
+    }
+
+
+    
+
+    if (newValue !== confirmValue) {
+
+        confirmPasswordError.textContent =
+            "Passwords do not match.";
+
+        return;
+
+    }
+
+
+    
+
+    let accounts = JSON.parse(
+        localStorage.getItem("signalAIAccounts")
+    ) || [];
+
+
+    
+
+    const accountIndex = accounts.findIndex(function (savedAccount) {
+
+        return savedAccount.email.toLowerCase() ===
+               account.email.toLowerCase();
+
+    });
+
+
+    if (accountIndex === -1) {
+
+        changePasswordMessage.textContent =
+            "Account not found. Please log in again.";
+
+        changePasswordMessage.style.color = "red";
+
+        return;
+
+    }
+
+
+    
+
+    accounts[accountIndex].password = newValue;
+
+    localStorage.setItem(
+        "signalAIAccounts",
+        JSON.stringify(accounts)
+    );
+
+
+    
+
+    account.password = newValue;
+
+
+    
+
+    changePasswordMessage.textContent =
+        "Password changed successfully!";
+
+    changePasswordMessage.style.color = "green";
+
+
+    
+
+    changePasswordForm.reset();
+
+    updateChangePasswordRules();
+
+});
+
+
+
 
     const themeToggle = document.getElementById("theme-toggle");
 
@@ -1003,8 +1508,6 @@ function showDashboard(account) {
 
 
 
-   
-
     const sidebarToggle = document.getElementById("sidebar-toggle");
 
 
@@ -1031,8 +1534,6 @@ function showDashboard(account) {
 
 
 
-  
-
     const sidebarLinks = document.querySelectorAll(".sidebar-nav a");
 
 
@@ -1053,8 +1554,6 @@ function showDashboard(account) {
     });
 
 
-
-   
 
     const profileMenuToggle =
         document.getElementById("profile-menu-toggle");
@@ -1102,7 +1601,6 @@ function showDashboard(account) {
         document.getElementById("mark-all-read");
 
 
-    
 
     function updateNotificationCount() {
 
@@ -1126,7 +1624,6 @@ function showDashboard(account) {
     }
 
 
-    
 
     notificationToggle.addEventListener("click", function (event) {
 
@@ -1148,7 +1645,6 @@ function showDashboard(account) {
     });
 
 
-   
 
     notificationItems.forEach(function (item) {
 
@@ -1163,7 +1659,6 @@ function showDashboard(account) {
     });
 
 
-   
 
     markAllRead.addEventListener("click", function () {
 
@@ -1178,18 +1673,13 @@ function showDashboard(account) {
     });
 
 
-    
 
     updateNotificationCount();
 
 
 
-    
-
     document.addEventListener("click", function (event) {
 
-
-        
 
         if (
             !profileMenuToggle.contains(event.target) &&
@@ -1202,8 +1692,6 @@ function showDashboard(account) {
 
         }
 
-
-       
 
         if (
             !notificationToggle.contains(event.target) &&
@@ -1218,79 +1706,80 @@ function showDashboard(account) {
 
     });
 
-    // Download CSV Report
 
-const downloadCsvButton = document.getElementById("download-csv-button");
+    
 
-downloadCsvButton.addEventListener("click", function () {
+    const downloadCsvButton = document.getElementById("download-csv-button");
 
-    const reportData = [
-        ["Report", "Value"],
-        ["Total Users", "12450"],
-        ["Total Revenue", "$48,250"],
-        ["Active Projects", "24"],
-        ["Growth Rate", "18.6%"],
-        ["Performance", "78%"],
-        [],
-        ["Recent Activity"],
-        ["New user registered", "2 minutes ago"],
-        ["Revenue report generated", "1 hour ago"],
-        ["Project completed", "Yesterday"]
-    ];
+    downloadCsvButton.addEventListener("click", function () {
 
-    let csvContent = "";
+        const reportData = [
+            ["Report", "Value"],
+            ["Total Users", "12450"],
+            ["Total Revenue", "$48,250"],
+            ["Active Projects", "24"],
+            ["Growth Rate", "18.6%"],
+            ["Performance", "78%"],
+            [],
+            ["Recent Activity"],
+            ["New user registered", "2 minutes ago"],
+            ["Revenue report generated", "1 hour ago"],
+            ["Project completed", "Yesterday"]
+        ];
 
-    reportData.forEach(function (row) {
+        let csvContent = "";
 
-        const formattedRow = row.map(function (value) {
+        reportData.forEach(function (row) {
 
-            return '"' + String(value).replace(/"/g, '""') + '"';
+            const formattedRow = row.map(function (value) {
+
+                return '"' + String(value).replace(/"/g, '""') + '"';
+
+            });
+
+            csvContent += formattedRow.join(",") + "\n";
 
         });
 
-        csvContent += formattedRow.join(",") + "\n";
+        const file = new Blob([csvContent], {
+            type: "text/csv;charset=utf-8;"
+        });
+
+        const url = URL.createObjectURL(file);
+
+        const link = document.createElement("a");
+
+        link.href = url;
+        link.download = "signalai-report.csv";
+
+        document.body.appendChild(link);
+
+        link.click();
+
+        document.body.removeChild(link);
+
+        URL.revokeObjectURL(url);
 
     });
 
-    const file = new Blob([csvContent], {
-        type: "text/csv;charset=utf-8;"
-    });
-
-    const url = URL.createObjectURL(file);
-
-    const link = document.createElement("a");
-
-    link.href = url;
-    link.download = "signalai-report.csv";
-
-    document.body.appendChild(link);
-
-    link.click();
-
-    document.body.removeChild(link);
-
-    URL.revokeObjectURL(url);
-
-});
 
 
 
+    const downloadPdfButton = document.getElementById("download-pdf-button");
 
-const downloadPdfButton = document.getElementById("download-pdf-button");
+    downloadPdfButton.addEventListener("click", function () {
 
-downloadPdfButton.addEventListener("click", function () {
+        const reportWindow = window.open("", "_blank");
 
-    const reportWindow = window.open("", "_blank");
+        if (!reportWindow) {
 
-    if (!reportWindow) {
+            alert("Please allow popups to download the PDF report.");
 
-        alert("Please allow popups to download the PDF report.");
+            return;
 
-        return;
+        }
 
-    }
-
-    reportWindow.document.write(`
+        reportWindow.document.write(`
         <!DOCTYPE html>
         <html>
         <head>
@@ -1385,18 +1874,17 @@ downloadPdfButton.addEventListener("click", function () {
         </html>
     `);
 
-    reportWindow.document.close();
+        reportWindow.document.close();
 
-    reportWindow.onload = function () {
+        reportWindow.onload = function () {
 
-        reportWindow.print();
+            reportWindow.print();
 
-    };
+        };
 
-});
+    });
 
 
-   
 
     const revenueCanvas = document.getElementById("revenue-chart");
 
@@ -1476,7 +1964,6 @@ downloadPdfButton.addEventListener("click", function () {
     });
 
 
-    
 
     revenueFilter.addEventListener("change", function () {
 
@@ -1493,8 +1980,6 @@ downloadPdfButton.addEventListener("click", function () {
     });
 
 
-
-    
 
     const usersChart = new Chart(
         document.getElementById("users-chart"),
@@ -1549,8 +2034,6 @@ downloadPdfButton.addEventListener("click", function () {
 
 
 
-    
-
     const trafficChart = new Chart(
         document.getElementById("traffic-chart"),
         {
@@ -1604,9 +2087,6 @@ downloadPdfButton.addEventListener("click", function () {
     );
 
 
-
-
-   
 
     const logoutButton = document.getElementById("logout-button");
 
