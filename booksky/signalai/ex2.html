@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pure CSS Accordion</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color:white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .accordion-container {
+            width: 420px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+        }
+
+        .accordion-item {
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .accordion-item:last-child {
+            border-bottom: none;
+        }
+
+        /* 1. Visually hide the actual checkbox inputs */
+        input[type="checkbox"] {
+            display: none;
+        }
+
+        /* 2. Style the Label as the Accordion Header */
+        label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            background-color: #007bff;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            user-select: none;
+            transition: background-color 0.3s ease;
+        }
+
+        label:hover {
+            background-color: #0056b3;
+        }
+
+        /* Add a plus/minus indicator using ::after pseudo-element */
+        label::after {
+            content: "+";
+            font-size: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        /* 3. Hide Content Panel using max-height for smooth CSS transition */
+        .content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s ease-out, padding 0.35s ease-out;
+            background-color: #fafafa;
+            padding: 0 20px;
+        }
+
+        .content p {
+            margin: 15px 0;
+            color: #333;
+            line-height: 1.5;
+        }
+
+        /* 4. THE TWIST: When Checkbox is :checked, expand content & swap icon */
+        input[type="checkbox"]:checked + label {
+            background-color: #004085;
+        }
+
+        input[type="checkbox"]:checked + label::after {
+            content: "−";
+        }
+
+        /* Selects the .content div immediately after label when checkbox is checked */
+        input[type="checkbox"]:checked + label + .content {
+            max-height: 200px; /* Allows panel to slide open smoothly */
+            padding: 10px 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="accordion-container">
+        
+        <!-- Accordion Section 1 -->
+        <div class="accordion-item">
+            <input type="checkbox" id="section1">
+            <label for="section1">What is HTML?</label>
+            <div class="content">
+                <p>HTML (HyperText Markup Language) builds the structural foundation and content layout of web pages.</p>
+            </div>
+        </div>
+
+        <!-- Accordion Section 2 -->
+        <div class="accordion-item">
+            <input type="checkbox" id="section2">
+            <label for="section2">What is CSS?</label>
+            <div class="content">
+                <p>CSS (Cascading Style Sheets) styles HTML elements, controlling layout, colors, fonts, and responsiveness.</p>
+            </div>
+        </div>
+
+        <!-- Accordion Section 3 -->
+        <div class="accordion-item">
+            <input type="checkbox" id="section3">
+            <label for="section3">How does this accordion work?</label>
+            <div class="content">
+                <p>Clicking the <code>&lt;label&gt;</code> toggles the hidden checkbox state, triggering the <code>:checked + label + .content</code> selector rules in CSS!</p>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

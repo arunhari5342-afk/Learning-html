@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Webpage</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: white;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column; /* Stacks sections from top to bottom */
+            min-height: 100vh;
+        }
+
+        /* 1. Header & Navigation */
+        header {
+            background-color: #333;
+            color: white;
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex; /* Makes navigation links horizontal */
+            gap: 20px;
+        }
+
+        header a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        header a:hover {
+            color: #00bcd4;
+        }
+
+        /* 2. Hero Section */
+        .hero {
+            text-align: center;
+            padding: 80px 20px;
+            background: linear-gradient(135deg, #007bff, #0056b3);
+            color: white;
+            margin: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .hero h1 {
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 25px;
+        }
+
+        .button {
+            background-color: #00bcd4;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .button:hover {
+            background-color: #008ba3;
+        }
+
+        /* 3. Features Section & Cards */
+        .features-section {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .features-section h2 {
+            font-size: 28px;
+            margin-bottom: 30px;
+        }
+
+        .features-container {
+            display: flex; /* Aligns 3 feature cards side-by-side */
+            justify-content: center;
+            gap: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background-color: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            flex: 1; /* Makes all 3 cards equal width */
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px); /* Card elevation effect */
+        }
+
+        /* 4. Footer */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #333;
+            color: white;
+            margin-top: auto; /* Pushes footer to bottom */
+        }
+
+        @media (max-width: 768px) {
+            .features-container {
+                flex-direction: column; /* Stacks cards vertically on smaller screens */
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header>
+        <h2>DevStudio</h2>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Welcome to My Webpage</h1>
+        <p>This is a simple webpage built with HTML and CSS Flexbox.</p>
+        <button class="button">Get Started</button>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <h2>Our Features</h2>
+        <div class="features-container">
+            <div class="card">
+                <h3>Fast Performance</h3>
+                <p>Optimized code that loads instantly on any browser.</p>
+            </div>
+            <div class="card">
+                <h3>Clean Structure</h3>
+                <p>Semantic HTML tags for better readability and accessibility.</p>
+            </div>
+            <div class="card">
+                <h3>Modern Styling</h3>
+                <p>Beautiful Flexbox layouts and smooth hover animations.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Arun Web Dev. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
