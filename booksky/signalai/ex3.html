@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glassmorphism Hero Card</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            /* Vibrant background gradient to show off the glass blur effect */
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .card {
+            /* GLASSMORPHISM PROPERTIES */
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            color: white;
+
+            /* BOX MODEL & LAYOUT */
+            border-radius: 15px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+            padding: 25px;
+            max-width: 350px;
+            text-align: center;
+            
+            /* SMOOTH ANIMATION TRANSITION */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        /* HOVER ELEVATION ANIMATION */
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        .card img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid white;
+        }
+
+        .card h1 {
+            margin: 15px 0 5px 0;
+            font-size: 24px;
+        }
+
+        .card h3 {
+            margin: 0 0 15px 0;
+            font-weight: 400;
+            color: #e0e0e0;
+        }
+
+        .card p {
+            font-size: 14px;
+            line-height: 1.5;
+            color: #f0f0f0;
+        }
+
+        button {
+            background-color: #ffffff;
+            color: #764ba2;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        button:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <img src="[suspicious link removed]" alt="Vignesh Profile Picture">
+        <h1>vignesh</h1>
+        <h3>Frontend Developer</h3>
+        <p>I'm a frontend developer with a passion for creating beautiful and functional web applications. I have experience in HTML, CSS, JavaScript, and React.</p>
+        <button>View Profile</button>
+    </div>
+
+</body>
+</html>

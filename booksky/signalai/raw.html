@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing Matrix</title>
+    <style>
+        body {
+            background-color: lightblue;
+            display: flex;
+            flex-direction:column;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 100vh;
+            
+        }
+
+        /* Base Card Styling */
+        .price {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            width: 200px;
+            text-align: center;
+            border: 2px solid gray;
+        }
+
+        /* THE TWIST: Highlighting the Middle (Featured) Card */
+        .featured {
+            transform: scale(1.1); /* Makes the featured card 10% larger */
+            border-color: darkblue;
+            background: linear-gradient(to bottom, #ffffff, #e6f2ff);
+        }
+
+        /* Button Styling */
+        button {
+            background-color: blue;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* Button Hover Effect */
+        button:hover {
+            background-color: darkblue;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="price">
+        <h2>Fruits</h2>
+        <ul>
+            <li>Tomato: $30</li>
+            <li>Apple: $40</li>
+            <li>Mango: $50</li>
+            <li>Banana: $60</li>
+        </ul>
+        <button>Buy Fruits</button>
+    </div>
+
+    <!-- Middle card has the 'featured' class to stand out -->
+    <div class="price featured">
+        <h2>Toys (Featured)</h2>
+        <ul>
+            <li>Car: $40</li>
+            <li>Doll: $50</li>
+            <li>Hero: $70</li>
+            <li>Truck: $60</li>
+        </ul>
+        <button>Buy Toys</button>
+    </div>
+
+    <div class="price">
+        <h2>Food</h2>
+        <ul>
+            <li>Dosa: $40</li>
+            <li>Idly: $50</li>
+            <li>Puri: $70</li>
+            <li>Chappati: $60</li>
+        </ul>
+        <button>Buy Food</button>
+    </div>
+
+</body>
+</html>
