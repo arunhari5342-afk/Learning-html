@@ -1,0 +1,126 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Developer Profile Cards</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: white;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: row; /* Aligns cards in a row */
+            gap: 15px;
+           
+
+
+        }
+        
+
+        .vinay {
+            background-color: white;
+            color: black;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid gray;
+            width: 250px;
+            margin: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease; /* Smooth transition for hover effect */
+            
+
+        }
+
+        .rajesh {
+            background-color: white;
+            color: black;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid gray;
+             width: 250px;
+            margin: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+             transition: transform 0.3s ease; /* Smooth transition for hover effect */
+             
+        }
+
+        .rishab {
+            background-color: white;
+            color: black;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid gray;
+             width: 250px;
+            margin: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease; /* Smooth transition for hover effect */
+            
+        }
+
+        .vinay:hover,
+        .rajesh:hover,
+         .rishab:hover {
+         transform: translateY(-5px);
+}
+        .button {
+            background-color: blue;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: skyblue;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column; /* Stack cards vertically on smaller screens */
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="vinay">
+            <h2>Vinay</h2>
+            <p>Vinay is a frontend developer</p>
+            <button class="button">View Profile</button>
+            <div class="avatar avatarA"></div>
+        </div>
+
+        <div class="rajesh">
+            <h2>Rajesh</h2>
+            <p>Rajesh is a backend developer</p>
+            <button class="button">View Profile</button>
+            <div class="avatar avatarB"></div>
+        </div>
+
+        <div class="rishab">
+            <h2>Rishab</h2>
+            <p>Rishab is a full-stack developer</p>
+            <button class="button">View Profile</button>
+            <div class="avatar avatarC"></div>
+        </div>
+
+    </div>
+
+</body>
+</html>
