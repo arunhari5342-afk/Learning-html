@@ -6,7 +6,7 @@
 
 body {
     font-family: "Inter", sans-serif;
-    background: #f8f7f4;
+    background: white;
 }
 
 
@@ -139,8 +139,8 @@ form input:focus {
 }
 
 .password-rules li.valid .rule-icon {
-    color: #16a34a;
-    border-color: #16a34a;
+    color: lightgreen;
+    border-color: lightgreen;
 }
 
 
@@ -152,7 +152,7 @@ form button[type="submit"] {
     border: none;
     border-radius: 8px;
 
-    background-color: #1558d6;
+    background-color: blue;
     color: white;
 
     font-size: 17px;
@@ -162,7 +162,7 @@ form button[type="submit"] {
 }
 
 form button[type="submit"]:hover {
-    background-color: #1047b0;
+    background-color: blue;
 }
 
 .signup-text,
@@ -175,7 +175,7 @@ form button[type="submit"]:hover {
 
 .signup-text a,
 .login-text a {
-    color: #1558d6;
+    color: blue;
     font-weight: 600;
     text-decoration: none;
 }
@@ -198,7 +198,7 @@ form button[type="submit"]:hover {
     text-align: center;
     margin-top: 28px;
     font-size: 13px;
-    color: #6b7280;
+    color: grey;
 }
 
 

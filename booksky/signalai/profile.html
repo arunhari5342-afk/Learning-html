@@ -1,0 +1,101 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Card</title>
+
+    <style>
+        /* Style the entire page */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: white;
+            margin: 0;
+            height: 100vh;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Profile card */
+        .profile-card {
+            background-color: white;
+            width: 300px;
+            padding: 30px;
+            text-align: center;
+            border-radius: 15px;
+            
+        }
+
+        /* Profile image */
+        .profile-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        /* Name */
+        .profile-name {
+            font-size: 24px;
+            margin-bottom: 5px;
+            color:gray;
+        }
+
+        /* Job title */
+        .profile-job {
+            color: blue;
+            font-size: 16px;
+            margin-top: 5px;
+        }
+
+        /* Description */
+        .profile-bio {
+            color:gray;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* Follow button */
+        .follow-button {
+            background-color: blue;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 6px;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        /* Button hover effect */
+        .follow-button:hover {
+            background-color:blue;
+        }
+
+    </style>
+</head>
+
+<body>
+    
+
+    <div class="profile-card">
+
+        <img src="profile.jpg" alt="Alex Johnson" class="profile-image">
+
+        <h2 class="profile-name">Alex Johnson</h2>
+
+        <p class="profile-job">Frontend Developer</p>
+
+        <p class="profile-bio">
+            A passionate developer with a love for creating
+            beautiful websites and innovative solutions.
+        </p>
+
+        <button class="follow-button">Follow</button>
+
+    </div>
+
+</body>
+</html>

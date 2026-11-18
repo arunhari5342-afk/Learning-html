@@ -1,17 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Webpage</title>
+    
     <style>
+    
         body {
             font-family: Arial, sans-serif;
             background-color: white;
             margin: 0;
             padding: 0;
             display: flex;
-            flex-direction: column; /* Stacks sections from top to bottom */
+            flex-direction: column;
+            /* Stacks sections from top to bottom */
             min-height: 100vh;
         }
 
@@ -29,7 +33,8 @@
             list-style-type: none;
             margin: 0;
             padding: 0;
-            display: flex; /* Makes navigation links horizontal */
+            display: flex;
+            /* Makes navigation links horizontal */
             gap: 20px;
         }
 
@@ -46,12 +51,13 @@
         /* 2. Hero Section */
         .hero {
             text-align: center;
-            padding: 80px 20px;
+            padding: 80px 20px 10px;
             background: linear-gradient(135deg, #007bff, #0056b3);
             color: white;
             margin: 20px;
             border-radius: 8px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            
         }
 
         .hero h1 {
@@ -65,7 +71,7 @@
         }
 
         .button {
-            background-color: #00bcd4;
+            background-color: blue;
             color: white;
             border: none;
             padding: 12px 25px;
@@ -77,13 +83,15 @@
         }
 
         .button:hover {
-            background-color: #008ba3;
+            background-color: skyblue;
         }
 
         /* 3. Features Section & Cards */
         .features-section {
             text-align: center;
             padding: 40px 20px;
+            transition: transform 0.3s ease;
+            scroll-behavior: smooth;
         }
 
         .features-section h2 {
@@ -92,7 +100,8 @@
         }
 
         .features-container {
-            display: flex; /* Aligns 3 feature cards side-by-side */
+            display: flex;
+            /* Aligns 3 feature cards side-by-side */
             justify-content: center;
             gap: 20px;
             max-width: 1000px;
@@ -104,12 +113,14 @@
             padding: 25px;
             border-radius: 8px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            flex: 1; /* Makes all 3 cards equal width */
+            flex: 1;
+            /* Makes all 3 cards equal width */
             transition: transform 0.3s ease;
         }
 
         .card:hover {
-            transform: translateY(-5px); /* Card elevation effect */
+            transform: translateY(-5px);
+            /* Card elevation effect */
         }
 
         /* 4. Footer */
@@ -118,18 +129,25 @@
             padding: 20px;
             background-color: #333;
             color: white;
-            margin-top: auto; /* Pushes footer to bottom */
+            margin-top: auto;
+            /* Pushes footer to bottom */
         }
 
         @media (max-width: 768px) {
             .features-container {
-                flex-direction: column; /* Stacks cards vertically on smaller screens */
+                flex-direction: column;
+                /* Stacks cards vertically on smaller screens */
                 gap: 15px;
             }
         }
     </style>
 </head>
+
 <body>
+    <li><a href="#features">Features</a></li>
+                    
+                
+
 
     <!-- Header Navigation -->
     <header>
@@ -148,26 +166,31 @@
         <h1>Welcome to My Webpage</h1>
         <p>This is a simple webpage built with HTML and CSS Flexbox.</p>
         <button class="button">Get Started</button>
+
+
     </section>
 
     <!-- Features Section -->
-    <section class="features-section">
-        <h2>Our Features</h2>
-        <div class="features-container">
-            <div class="card">
-                <h3>Fast Performance</h3>
-                <p>Optimized code that loads instantly on any browser.</p>
-            </div>
-            <div class="card">
-                <h3>Clean Structure</h3>
-                <p>Semantic HTML tags for better readability and accessibility.</p>
-            </div>
-            <div class="card">
-                <h3>Modern Styling</h3>
-                <p>Beautiful Flexbox layouts and smooth hover animations.</p>
-            </div>
+   <section class="features-section" id="features">
+    <h2>Our Features</h2>
+
+    <div class="features-container">
+        <div class="card">
+            <h3>Fast Performance</h3>
+            <p>Optimized code that loads instantly on any browser.</p>
         </div>
-    </section>
+
+        <div class="card">
+            <h3>Clean Structure</h3>
+            <p>Semantic HTML tags for better readability and accessibility.</p>
+        </div>
+
+        <div class="card">
+            <h3>Modern Styling</h3>
+            <p>Beautiful Flexbox layouts and smooth hover animations.</p>
+        </div>
+    </div>
+</section>
 
     <!-- Footer -->
     <footer>
@@ -175,4 +198,5 @@
     </footer>
 
 </body>
+
 </html>
