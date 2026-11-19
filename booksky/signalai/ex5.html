@@ -1,0 +1,260 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Login Page</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: white;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* Main container */
+
+        .login-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            width: 100%;
+            background-color: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Left side */
+
+        .login-left {
+            background-color: blue;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .login-left h1 {
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+
+        .login-left p {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        /* Right side */
+
+        .login-right {
+            padding: 45px 35px;
+        }
+
+        .login-right h2 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            color:  dark gray;
+        }
+
+        .login-right .subtitle {
+            color: darkgray;
+            margin-bottom: 30px;
+        }
+
+        /* Form */
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: black;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        /* Input focus effect */
+
+        .form-group input:focus {
+            border-color: blue;
+            box-shadow: 0 0 5px rgba(21, 88, 214, 0.2);
+        }
+
+        /* Forgot password */
+
+        .forgot-password {
+            display: block;
+            text-align: right;
+            text-decoration: none;
+            color: blue;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+
+        /* Login button */
+
+        .login-btn {
+            width: 100%;
+            padding: 13px;
+            background-color: blue;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .login-btn:hover {
+            background-color: skyblue;
+        }
+
+        /* Register link */
+
+        .register-text {
+            text-align: center;
+            margin-top: 25px;
+            color: darkgray;
+            font-size: 14px;
+        }
+
+        .register-text a {
+            color: blue;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .register-text a:hover {
+            text-decoration: underline;
+        }
+
+        /* Mobile responsive */
+
+        @media (max-width: 768px) {
+
+            .login-container {
+                grid-template-columns: 1fr;
+            }
+
+            .login-left {
+                padding: 30px 20px;
+            }
+
+            .login-left h1 {
+                font-size: 26px;
+            }
+
+            .login-right {
+                padding: 30px 25px;
+            }
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="login-container">
+
+        <!-- Left section -->
+
+        <section class="login-left">
+
+            <h1>Welcome Back!</h1>
+
+            <p>
+                Sign in to access your account
+                and explore all our features.
+            </p>
+
+        </section>
+
+        <!-- Right section -->
+
+        <section class="login-right">
+
+            <h2>Login</h2>
+
+            <p class="subtitle">
+                Enter your details to continue.
+            </p>
+
+            <form>
+
+                <div class="form-group">
+
+                    <label for="email">Email Address</label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="Enter your email"
+                        required
+                    >
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="password">Password</label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Enter your password"
+                        required
+                    >
+
+                </div>
+
+                <a href="#" class="forgot-password">
+                    Forgot Password?
+                </a>
+
+                <button type="submit" class="login-btn">
+                    Login
+                </button>
+
+                <p class="register-text">
+                    Don't have an account?
+                    <a href="#">Register</a>
+                </p>
+
+            </form>
+
+        </section>
+
+    </div>
+
+</body>
+</html>
