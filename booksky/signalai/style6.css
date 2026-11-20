@@ -1,0 +1,298 @@
+
+/* 1. Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 2. Body Styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: whitesmoke;
+    color: darkslategray;
+}
+
+/* 3. Main Dashboard Layout */
+.dashboard {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* 4. Sidebar Styling */
+.sidebar {
+    width: 250px;
+    background-color: midnightblue;
+    color: white;
+    padding: 25px 20px;
+    position: sticky;
+    top: 0;
+    min-height: 100vh;
+    
+}
+
+/* Logo */
+.logo {
+    font-size: 25px;
+    margin-bottom: 35px;
+}
+
+/* Sidebar Navigation */
+.sidebar-nav ul {
+    list-style: none;
+}
+
+.sidebar-nav li {
+    margin-bottom: 15px;
+}
+
+.sidebar-nav a {
+    display: block;
+    text-decoration: none;
+    color: lightsteelblue;
+    padding: 12px;
+    border-radius: 6px;
+    transition: background-color 0.3s ease;
+}
+
+/* Navigation Hover */
+.sidebar-nav a:hover {
+    background-color: slategray;
+    color: white;
+}
+
+/* 5. Main Content */
+.main-content {
+    flex: 1;
+    min-width: 0;
+    padding: 25px;
+}
+
+/* 6. Top Header */
+.top-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.top-header h1 {
+    font-size: 26px;
+}
+
+/* Header Actions */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Search Input */
+.header-actions input {
+    padding: 10px 15px;
+    border: 1px solid lightgray;
+    border-radius: 6px;
+    outline:none;
+    font-size: 14px;
+}
+
+.header-actions input:focus {
+    border-color: royalblue;
+    box-shadow: 0 0 5px lightblue;
+}
+
+/* Profile */
+.profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.profile img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* 7. Dashboard Content */
+.dashboard-content h2 {
+    margin-bottom: 10px;
+}
+
+.dashboard-content > p {
+    color: gray;
+    margin-bottom: 25px;
+}
+
+/* 8. Statistics Cards */
+.stats-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-bottom: 35px;
+}
+
+/* Individual Card */
+.stat-card {
+    background-color: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px lightgray;
+    transition: transform 0.3s ease;
+}
+
+/* Card Hover */
+.stat-card:hover {
+    transform: translateY(-5px);
+}
+
+.stat-card h3 {
+    font-size: 15px;
+    color: gray;
+    margin-bottom: 15px;
+}
+
+.stat-value {
+    font-size: 26px;
+    font-weight: bold;
+    color: royalblue;
+    margin-bottom: 8px;
+}
+
+.stat-description {
+    font-size: 13px;
+    color: darkgray;
+}
+
+/* 9. Recent Activity */
+.activity-section {
+    background-color: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px lightgray;
+}
+
+.activity-section h2 {
+    margin-bottom: 20px;
+}
+
+/* Activity Items */
+.activity-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.activity-item {
+    padding: 15px;
+    border-bottom: 1px solid lightgray;
+}
+
+.activity-item h3 {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.activity-item p {
+    font-size: 14px;
+    color: gray;
+    margin-bottom: 5px;
+}
+
+.activity-item span {
+    font-size: 12px;
+    color: darkgray;
+}
+
+/* 10. Footer */
+.dashboard-footer {
+    text-align: center;
+    padding: 25px 10px;
+    margin-top: 25px;
+    color: gray;
+    font-size: 13px;
+}
+
+/* 11. Tablet Responsive Design */
+@media (max-width: 1024px) {
+
+    .stats-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .sidebar {
+        width: 200px;
+    }
+
+}
+
+/* 12. Mobile Responsive Design */
+@media (max-width: 768px) {
+
+    .dashboard {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: static;
+    }
+
+    .logo {
+        margin-bottom: 15px;
+    }
+
+    .sidebar-nav ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .sidebar-nav li {
+        margin-bottom: 0;
+    }
+
+    .main-content {
+        padding: 15px;
+    }
+
+    .top-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .header-actions {
+        width: 100%;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+
+}
+
+/* 13. Small Mobile Screens */
+@media (max-width: 480px) {
+
+    .stats-container {
+        grid-template-columns: 1fr;
+    }
+
+    .top-header h1 {
+        font-size: 21px;
+    }
+
+    .header-actions input {
+        width: 100%;
+    }
+
+    .profile {
+        margin-top: 5px;
+    }
+
+    .stat-card {
+        padding: 20px;
+    }
+
+}
