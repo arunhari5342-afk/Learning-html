@@ -1,0 +1,17 @@
+
+body {
+    background-color: aliceblue;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 40px;
+}
+
+h1 {
+    color: darkblue;
+    font-size: 32px;
+}
+
+p {
+    color: darkslategray;
+    font-size: 18px;
+}
