@@ -1,0 +1,37 @@
+
+/* General styling */
+body {
+    background-color: aliceblue;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Main heading */
+h1 {
+    color: darkblue;
+    text-align: center;
+    margin-top: 40px;
+    font-size: 32px;
+}
+
+/* Description */
+p {
+    color: darkslategray;
+    text-align: center;
+    font-size: 18px;
+    margin-top: 15px;
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+    h1 {
+        font-size: 25px;
+        padding: 0 15px;
+    }
+
+    p {
+        font-size: 16px;
+        padding: 0 15px;
+    }
+}
