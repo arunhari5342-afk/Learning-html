@@ -1,0 +1,125 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Registration System</title>
+
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <header>
+        <h1>Student Registration System</h1>
+        <p>Manage your student records</p>
+    </header>
+
+    <main>
+
+        <!-- Total Students -->
+        <section class="dashboard">
+            <div class="dashboard-card">
+                <h2 id="total-students">0</h2>
+                <p>Total Students</p>
+            </div>
+        </section>
+
+        <!-- Student Registration Form -->
+        <section class="form-section">
+
+            <h2>Add New Student</h2>
+
+            <form id="student-form">
+
+                <div class="form-group">
+                    <label for="student-name">Student Name</label>
+                    <input
+                        type="text"
+                        id="student-name"
+                        placeholder="Enter student name"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="student-email">Email Address</label>
+                    <input
+                        type="email"
+                        id="student-email"
+                        placeholder="Enter email address"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="student-course">Select Course</label>
+
+                    <select id="student-course">
+                        <option value="">Choose a course</option>
+                        <option value="HTML/CSS">HTML/CSS</option>
+                        <option value="JavaScript">JavaScript</option>
+                        <option value="Python">Python</option>
+                        <option value="Java">Java</option>
+                    </select>
+                </div>
+
+                <button type="submit">Add Student</button>
+
+            </form>
+
+            <p id="message"></p>
+
+        </section>
+
+        <!-- Student List -->
+        <section class="student-list-section">
+
+            <h2>Registered Students</h2>
+
+            <!-- Search -->
+            <input
+                type="text"
+                id="search-student"
+                placeholder="Search student by name..."
+            >
+
+            <!-- Student Table -->
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>Student Name</th>
+                            <th>Email</th>
+                            <th>Course</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="student-list">
+
+                        <!-- JavaScript will display students here -->
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>Student Registration System</p>
+    </footer>
+
+</body>
+
+</html>
