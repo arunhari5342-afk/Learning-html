@@ -1,36 +1,50 @@
 
-// Student details
-let studentName = prompt("Enter student name:");
+// Get the form and result elements
+let studentForm = document.getElementById("studentForm");
+let result = document.getElementById("result");
+let errorMessage = document.getElementById("errorMessage");
 
-let total = 0;
-let isValid = true;
+// Handle form submission
+studentForm.addEventListener("submit", function(event) {
 
-// Subject details
-let subjects = 5;
+    // Prevent page refresh
+    event.preventDefault();
 
-// Get marks for 5 subjects
-for (let i = 1; i <= subjects; i++) {
+    // Get student name
+    let studentName = document.getElementById("studentName").value.trim();
 
-    let marks = Number(prompt("Enter marks for subject " + i + ":"));
+    let total = 0;
+    let isValid = true;
 
-    // Validate marks
-    if (marks < 0 || marks > 100 || !Number.isFinite(marks)) {
+    // Get marks for 5 subjects
+    for (let i = 1; i <= 5; i++) {
 
-        console.log("Invalid marks entered for subject " + i);
+        let marks = Number(document.getElementById("subject" + i).value);
 
-        isValid = false;
+        // Validate marks
+        if (!Number.isFinite(marks) || marks < 0 || marks > 100) {
 
-        break;
+            errorMessage.textContent =
+                "Invalid marks! Enter marks between 0 and 100.";
+
+            isValid = false;
+
+            break;
+        }
+
+        // Calculate total
+        total = total + marks;
     }
 
-    // Calculate total
-    total = total + marks;
-}
+    // Stop if marks are invalid
+    if (!isValid) {
+        result.innerHTML = "";
+        return;
+    }
 
-// Calculate result only if all marks are valid
-if (isValid) {
+    // Calculate average
+    let average = total / 5;
 
-    let average = total / subjects;
     let grade;
 
     // Calculate grade
@@ -50,20 +64,30 @@ if (isValid) {
         grade = "Fail";
     }
 
-    // Display student result
-    console.log("Student Name: " + studentName);
-    console.log("Total Marks: " + total + " / 500");
-    console.log("Average Marks: " + average);
-    console.log("Grade: " + grade);
+    // Determine pass or fail
+    let finalResult;
 
     if (grade === "Fail") {
-        console.log("Result: Sorry, you failed.");
+        finalResult = "Sorry, you failed.";
     }
     else {
-        console.log("Result: Congratulations! You passed.");
+        finalResult = "Congratulations! You passed.";
     }
 
-}
-else {
-    console.log("Result cannot be calculated due to invalid marks.");
-}
+    // Clear previous error
+    errorMessage.textContent = "";
+
+    // Display result on webpage
+    result.innerHTML = `
+        <h2>Student Result</h2>
+        <p><strong>Student Name:</strong> <span id="resultName"></span></p>
+        <p><strong>Total Marks:</strong> ${total} / 500</p>
+        <p><strong>Average Marks:</strong> ${average.toFixed(2)}</p>
+        <p><strong>Grade:</strong> ${grade}</p>
+        <p><strong>Result:</strong> ${finalResult}</p>
+    `;
+
+    // Display student name safely
+    document.getElementById("resultName").textContent = studentName;
+
+});
