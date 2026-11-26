@@ -1,10 +1,12 @@
 
-// Get HTML elements
+// Get HTML Elements
 
 const studentForm = document.getElementById("student-form");
 const studentName = document.getElementById("student-name");
 const studentEmail = document.getElementById("student-email");
 const studentCourse = document.getElementById("student-course");
+const attendanceStatus = document.getElementById("attendance-status");
+const feeStatus = document.getElementById("fee-status");
 
 const studentList = document.getElementById("student-list");
 const draftList = document.getElementById("draft-list");
@@ -20,30 +22,74 @@ const saveDraftButton = document.getElementById("save-draft-btn");
 const viewDraftsButton = document.getElementById("view-drafts-btn");
 const draftSection = document.getElementById("draft-section");
 
+const courseFilter = document.getElementById("course-filter");
+const sortStudents = document.getElementById("sort-students");
+const themeToggle = document.getElementById("theme-toggle");
 
-// Character limits
+// Pagination Elements
+
+const pageInfo = document.getElementById("page-info");
+const pageNumbers = document.getElementById("page-numbers");
+const previousButton = document.getElementById("previous-btn");
+const nextButton = document.getElementById("next-btn");
+
+// Character Limits
 
 const nameLimit = 20;
 const emailLimit = 40;
 
-
-// Get students from Local Storage
+// Get Students from Local Storage
 
 let students = JSON.parse(localStorage.getItem("students")) || [];
 
+// Add Default Values to Older Student Records
 
-// Store the ID of the student being edited
+students.forEach(function(student) {
+
+    if (!student.attendance) {
+        student.attendance = "Present";
+    }
+
+    if (!student.feeStatus) {
+        student.feeStatus = "Unpaid";
+    }
+
+});
+
+localStorage.setItem("students", JSON.stringify(students));
+
+// Store the ID of the Student Being Edited
 
 let editingStudentId = null;
 
+// Pagination Variables
 
-// Display students when page loads
+let currentPage = 1;
+let studentsPerPage = 5;
+
+// Apply Previously Saved Theme
+
+let savedTheme = localStorage.getItem("studentTheme");
+
+if (savedTheme === "dark") {
+
+    document.body.classList.add("dark-mode");
+    themeToggle.textContent = "☀️";
+
+} else {
+
+    document.body.classList.remove("dark-mode");
+    themeToggle.textContent = "🌙";
+
+}
+
+// Display Students When Page Loads
 
 displayStudents();
 displayDrafts();
 
 
-// Name validation while typing
+// Name Validation While Typing
 
 studentName.addEventListener("input", function() {
 
@@ -58,7 +104,7 @@ studentName.addEventListener("input", function() {
 });
 
 
-// Email validation while typing
+// Email Validation While Typing
 
 studentEmail.addEventListener("input", function() {
 
@@ -98,19 +144,19 @@ function saveStudent(status) {
     let name = studentName.value.trim();
     let email = studentEmail.value.trim().toLowerCase();
     let course = studentCourse.value;
+    let attendance = attendanceStatus.value;
+    let payment = feeStatus.value;
 
-
-    // Check name length if name is entered
+    // Check Name Length
 
     if (name !== "" && (name.length < 3 || name.length > nameLimit)) {
 
-        showMessage("Name must contain 3 to 30 characters.", "red");
+        showMessage("Name must contain 3 to 20 characters.", "red");
         return;
 
     }
 
-
-    // Check name characters
+    // Check Name Characters
 
     for (let i = 0; i < name.length; i++) {
 
@@ -127,18 +173,16 @@ function saveStudent(status) {
 
     }
 
-
-    // Check email length
+    // Check Email Length
 
     if (email.length > emailLimit) {
 
-        showMessage("Email cannot exceed 50 characters.", "red");
+        showMessage("Email cannot exceed 40 characters.", "red");
         return;
 
     }
 
-
-    // Validate email using RegEx if email is entered
+    // Validate Email Using RegEx
 
     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
@@ -149,8 +193,7 @@ function saveStudent(status) {
 
     }
 
-
-    // Check duplicate email
+    // Check Duplicate Email
 
     if (email !== "") {
 
@@ -161,7 +204,6 @@ function saveStudent(status) {
 
         });
 
-
         if (emailExists) {
 
             showMessage("This email is already registered or saved as draft!", "red");
@@ -171,8 +213,7 @@ function saveStudent(status) {
 
     }
 
-
-    // Registered students must have all fields
+    // Registered Students Must Have All Fields
 
     if (status === "registered") {
 
@@ -185,7 +226,7 @@ function saveStudent(status) {
 
     } else {
 
-        // Draft must have at least one field filled
+        // Draft Must Have at Least One Field Filled
 
         if (name === "" && email === "" && course === "") {
 
@@ -196,8 +237,7 @@ function saveStudent(status) {
 
     }
 
-
-    // Check whether we are editing an existing student
+    // Check Whether We Are Editing an Existing Student
 
     if (editingStudentId !== null) {
 
@@ -207,17 +247,13 @@ function saveStudent(status) {
 
         });
 
-
         if (existingStudent) {
-
-            // Update existing student
 
             existingStudent.name = name;
             existingStudent.email = email;
             existingStudent.course = course;
-
-            // Change student status
-
+            existingStudent.attendance = attendance;
+            existingStudent.feeStatus = payment;
             existingStudent.status = status;
 
             if (status === "draft") {
@@ -234,7 +270,7 @@ function saveStudent(status) {
 
     } else {
 
-        // Create a new student
+        // Create a New Student
 
         let student = {
 
@@ -242,15 +278,13 @@ function saveStudent(status) {
             name: name,
             email: email,
             course: course,
+            attendance: attendance,
+            feeStatus: payment,
             status: status
 
         };
 
-
-        // Add student to array
-
         students.push(student);
-
 
         if (status === "draft") {
 
@@ -264,34 +298,28 @@ function saveStudent(status) {
 
     }
 
-
-    // Reset editing mode
+    // Reset Editing Mode
 
     editingStudentId = null;
 
-
-    // Reset button text
-
     document.getElementById("add-student-btn").textContent = "Add Student";
 
-
-    // Save students in Local Storage
+    // Save Students in Local Storage
 
     saveStudents();
 
+    // Go Back to First Page After Saving
 
-    // Update both lists
+    currentPage = 1;
+
+    // Update Both Lists
 
     displayStudents();
     displayDrafts();
 
-
-    // Reset form
+    // Reset Form
 
     studentForm.reset();
-
-
-    // Reset character counters
 
     resetCounters();
 
@@ -306,36 +334,86 @@ function displayStudents() {
 
     let searchValue = searchInput.value.toLowerCase().trim();
 
+    let selectedCourse = courseFilter.value;
 
-    // Get only registered students
+    let selectedSort = sortStudents.value;
+
+    // Get Registered Students Using Search and Course Filter
 
     let registeredStudents = students.filter(function(student) {
 
         return student.status !== "draft" &&
-               student.name.toLowerCase().includes(searchValue);
+
+               student.name.toLowerCase().includes(searchValue) &&
+
+               (selectedCourse === "" || student.course === selectedCourse);
 
     });
 
+    // Sort Registered Students
 
-    registeredStudents.forEach(function(student) {
+    if (selectedSort === "ascending") {
+
+        registeredStudents.sort(function(a, b) {
+
+            return a.name.localeCompare(b.name);
+
+        });
+
+    } else if (selectedSort === "descending") {
+
+        registeredStudents.sort(function(a, b) {
+
+            return b.name.localeCompare(a.name);
+
+        });
+
+    }
+
+    // Calculate Total Pages
+
+    let totalPages = Math.ceil(registeredStudents.length / studentsPerPage);
+
+    // Make Sure Current Page Is Valid
+
+    if (currentPage > totalPages) {
+
+        currentPage = Math.max(totalPages, 1);
+
+    }
+
+    // Calculate Starting and Ending Positions
+
+    let startIndex = (currentPage - 1) * studentsPerPage;
+
+    let endIndex = startIndex + studentsPerPage;
+
+    // Get Students for the Current Page
+
+    let paginatedStudents = registeredStudents.slice(startIndex, endIndex);
+
+    // Display Students on the Current Page
+
+    paginatedStudents.forEach(function(student) {
 
         let row = document.createElement("tr");
-
 
         let nameCell = document.createElement("td");
         nameCell.textContent = student.name;
 
-
         let emailCell = document.createElement("td");
         emailCell.textContent = student.email;
-
 
         let courseCell = document.createElement("td");
         courseCell.textContent = student.course;
 
+        let attendanceCell = document.createElement("td");
+        attendanceCell.textContent = student.attendance || "Present";
+
+        let feeCell = document.createElement("td");
+        feeCell.textContent = student.feeStatus || "Unpaid";
 
         let actionCell = document.createElement("td");
-
 
         // Edit Button
 
@@ -349,7 +427,6 @@ function displayStudents() {
             editStudent(student);
 
         });
-
 
         // Delete Button
 
@@ -364,30 +441,28 @@ function displayStudents() {
 
         });
 
-
         actionCell.appendChild(editButton);
         actionCell.appendChild(deleteButton);
-
 
         row.appendChild(nameCell);
         row.appendChild(emailCell);
         row.appendChild(courseCell);
+        row.appendChild(attendanceCell);
+        row.appendChild(feeCell);
         row.appendChild(actionCell);
-
 
         studentList.appendChild(row);
 
     });
 
-
-    // Show message if no students exist
+    // Show Message If No Students Exist
 
     if (registeredStudents.length === 0) {
 
         let row = document.createElement("tr");
         let cell = document.createElement("td");
 
-        cell.colSpan = 4;
+        cell.colSpan = 6;
         cell.textContent = "No registered students found.";
 
         row.appendChild(cell);
@@ -395,8 +470,7 @@ function displayStudents() {
 
     }
 
-
-    // Update registered student count
+    // Update Total Registered Student Count
 
     totalStudents.textContent = students.filter(function(student) {
 
@@ -404,7 +478,99 @@ function displayStudents() {
 
     }).length;
 
+    // Update Pagination
+
+    updatePagination(totalPages, registeredStudents.length);
+
 }
+
+
+// Update Pagination
+
+function updatePagination(totalPages, totalStudentsCount) {
+
+    pageNumbers.innerHTML = "";
+
+    // Show Student Count
+
+    if (totalStudentsCount === 0) {
+
+        pageInfo.textContent = "Showing 0 students";
+
+    } else {
+
+        let start = (currentPage - 1) * studentsPerPage + 1;
+
+        let end = Math.min(currentPage * studentsPerPage, totalStudentsCount);
+
+        pageInfo.textContent = "Showing " + start + "–" + end +
+                               " of " + totalStudentsCount + " students";
+
+    }
+
+    // Disable Previous Button on First Page
+
+    previousButton.disabled = currentPage === 1;
+
+    // Disable Next Button on Last Page
+
+    nextButton.disabled = currentPage === totalPages || totalPages === 0;
+
+    // Create Numbered Page Buttons
+
+    for (let i = 1; i <= totalPages; i++) {
+
+        let pageButton = document.createElement("button");
+
+        pageButton.textContent = i;
+
+        // Highlight Current Page
+
+        if (i === currentPage) {
+
+            pageButton.classList.add("active");
+
+        }
+
+        pageButton.addEventListener("click", function() {
+
+            currentPage = i;
+
+            displayStudents();
+
+        });
+
+        pageNumbers.appendChild(pageButton);
+
+    }
+
+}
+
+
+// Previous Page Button
+
+previousButton.addEventListener("click", function() {
+
+    if (currentPage > 1) {
+
+        currentPage--;
+
+        displayStudents();
+
+    }
+
+});
+
+
+// Next Page Button
+
+nextButton.addEventListener("click", function() {
+
+    currentPage++;
+
+    displayStudents();
+
+});
 
 
 // Display Draft Students
@@ -413,8 +579,7 @@ function displayDrafts() {
 
     draftList.innerHTML = "";
 
-
-    // Get only draft students
+    // Get Only Draft Students
 
     let drafts = students.filter(function(student) {
 
@@ -422,26 +587,26 @@ function displayDrafts() {
 
     });
 
-
     drafts.forEach(function(student) {
 
         let row = document.createElement("tr");
 
-
         let nameCell = document.createElement("td");
         nameCell.textContent = student.name || "Not entered";
-
 
         let emailCell = document.createElement("td");
         emailCell.textContent = student.email || "Not entered";
 
-
         let courseCell = document.createElement("td");
         courseCell.textContent = student.course || "Not selected";
 
+        let attendanceCell = document.createElement("td");
+        attendanceCell.textContent = student.attendance || "Present";
+
+        let feeCell = document.createElement("td");
+        feeCell.textContent = student.feeStatus || "Unpaid";
 
         let actionCell = document.createElement("td");
-
 
         // Edit Button
 
@@ -455,7 +620,6 @@ function displayDrafts() {
             editStudent(student);
 
         });
-
 
         // Add Student Button
 
@@ -470,7 +634,6 @@ function displayDrafts() {
 
         });
 
-
         // Delete Button
 
         let deleteButton = document.createElement("button");
@@ -484,31 +647,29 @@ function displayDrafts() {
 
         });
 
-
         actionCell.appendChild(editButton);
         actionCell.appendChild(registerButton);
         actionCell.appendChild(deleteButton);
 
-
         row.appendChild(nameCell);
         row.appendChild(emailCell);
         row.appendChild(courseCell);
+        row.appendChild(attendanceCell);
+        row.appendChild(feeCell);
         row.appendChild(actionCell);
-
 
         draftList.appendChild(row);
 
     });
 
-
-    // Show message if there are no drafts
+    // Show Message If There Are No Drafts
 
     if (drafts.length === 0) {
 
         let row = document.createElement("tr");
         let cell = document.createElement("td");
 
-        cell.colSpan = 4;
+        cell.colSpan = 6;
         cell.textContent = "No drafts available.";
 
         row.appendChild(cell);
@@ -526,9 +687,10 @@ function editStudent(student) {
     studentName.value = student.name;
     studentEmail.value = student.email;
     studentCourse.value = student.course;
+    attendanceStatus.value = student.attendance || "Present";
+    feeStatus.value = student.feeStatus || "Unpaid";
 
-
-    // Update character counters
+    // Update Character Counters
 
     nameCount.textContent =
         nameLimit - studentName.value.length + " characters remaining";
@@ -536,18 +698,15 @@ function editStudent(student) {
     emailCount.textContent =
         emailLimit - studentEmail.value.length + " characters remaining";
 
-
-    // Store existing student ID
+    // Store Existing Student ID
 
     editingStudentId = student.id;
 
-
-    // Change heading button text
+    // Change Button Text
 
     document.getElementById("add-student-btn").textContent = "Update Student";
 
-
-    // Show form
+    // Show Form
 
     studentForm.scrollIntoView({
 
@@ -568,13 +727,11 @@ function registerDraft(id) {
 
     });
 
-
     if (!draft) {
         return;
     }
 
-
-    // Check whether all fields are filled
+    // Check Whether All Fields Are Filled
 
     if (draft.name === "" || draft.email === "" || draft.course === "") {
 
@@ -586,24 +743,20 @@ function registerDraft(id) {
 
     }
 
-
-    // Change draft status to registered
+    // Change Draft Status to Registered
 
     draft.status = "registered";
 
-
-    // Save changes
+    // Save Changes
 
     saveStudents();
 
+    currentPage = 1;
 
-    // Refresh both lists
+    // Refresh Both Lists
 
     displayStudents();
     displayDrafts();
-
-
-    // Show success message
 
     showMessage("Draft registered successfully!", "green");
 
@@ -617,15 +770,19 @@ viewDraftsButton.addEventListener("click", function() {
     if (draftSection.hidden) {
 
         draftSection.hidden = false;
+
         viewDraftsButton.textContent = "Hide Drafts";
 
         draftSection.scrollIntoView({
+
             behavior: "smooth"
+
         });
 
     } else {
 
         draftSection.hidden = true;
+
         viewDraftsButton.textContent = "View Drafts";
 
     }
@@ -637,7 +794,58 @@ viewDraftsButton.addEventListener("click", function() {
 
 searchInput.addEventListener("input", function() {
 
+    currentPage = 1;
+
     displayStudents();
+
+});
+
+
+// Course Filter
+
+courseFilter.addEventListener("change", function() {
+
+    currentPage = 1;
+
+    displayStudents();
+
+});
+
+
+// Sort Students
+
+sortStudents.addEventListener("change", function() {
+
+    currentPage = 1;
+
+    displayStudents();
+
+});
+
+
+// Dark and Light Theme Toggle
+
+themeToggle.addEventListener("click", function() {
+
+    document.body.classList.toggle("dark-mode");
+
+    if (document.body.classList.contains("dark-mode")) {
+
+        themeToggle.textContent = "☀️";
+
+        themeToggle.setAttribute("aria-label", "Enable light mode");
+
+        localStorage.setItem("studentTheme", "dark");
+
+    } else {
+
+        themeToggle.textContent = "🌙";
+
+        themeToggle.setAttribute("aria-label", "Enable dark mode");
+
+        localStorage.setItem("studentTheme", "light");
+
+    }
 
 });
 
@@ -646,14 +854,21 @@ searchInput.addEventListener("input", function() {
 
 function deleteStudent(id) {
 
+    let confirmDelete = confirm("Are you sure you want to delete this student?");
+
+    if (!confirmDelete) {
+        return;
+    }
+
+    // Remove Selected Student
+
     students = students.filter(function(student) {
 
         return student.id !== id;
 
     });
 
-
-    // Reset form if the deleted student was being edited
+    // Reset Form If Deleted Student Was Being Edited
 
     if (editingStudentId === id) {
 
@@ -667,17 +882,14 @@ function deleteStudent(id) {
 
     }
 
-
-    // Save changes
+    // Save Changes
 
     saveStudents();
 
-
-    // Refresh lists
+    // Refresh Lists
 
     displayStudents();
     displayDrafts();
-
 
     showMessage("Student deleted successfully!", "green");
 
