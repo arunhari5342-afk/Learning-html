@@ -1,196 +1,171 @@
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Student Registration System</title>
-
     <link rel="stylesheet" href="style.css">
-    
-
 </head>
-
 <body>
-
     <!-- Header -->
     <header>
         <h1>Student Registration System</h1>
         <p>Manage your student records</p>
+        <button type="button" id="theme-toggle" aria-label="Enable dark mode" title="Enable dark mode">🌙</button>
     </header>
 
     <main>
-
         <!-- Dashboard -->
         <section class="dashboard">
-
             <div class="dashboard-card">
                 <h2 id="total-students">0</h2>
                 <p>Total Students</p>
             </div>
-
         </section>
-
 
         <!-- Student Registration Form -->
         <section class="form-section">
-
             <h2>Add New Student</h2>
-
             <form id="student-form" novalidate>
-
-                <!-- Student Name -->
                 <div class="form-group">
-
                     <label for="student-name">Student Name</label>
-
-                    <input
-                        type="text"
-                        id="student-name"
-                        placeholder="Enter student name"
-                        maxlength="20"
-                    >
-
+                    <input type="text" id="student-name" placeholder="Enter student name" maxlength="20">
                     <small id="name-count">20 characters remaining</small>
-
                 </div>
 
-
-                <!-- Student Email -->
                 <div class="form-group">
-
                     <label for="student-email">Email Address</label>
-
-                    <input
-                        type="text"
-                        id="student-email"
-                        placeholder="Enter email address"
-                        maxlength="40"
-                    >
-
+                    <input type="text" id="student-email" placeholder="Enter email address" maxlength="40">
                     <small id="email-count">40 characters remaining</small>
-
                 </div>
 
-
-                <!-- Student Course -->
                 <div class="form-group">
-
                     <label for="student-course">Select Course</label>
-
                     <select id="student-course">
-
                         <option value="">Choose a course</option>
                         <option value="HTML/CSS">HTML/CSS</option>
                         <option value="JavaScript">JavaScript</option>
                         <option value="Python">Python</option>
                         <option value="Java">Java</option>
-
                     </select>
-
                 </div>
 
+                <!-- Simple attendance: one current status, not daily records -->
+                <div class="form-group">
+                    <label for="attendance-status">Attendance</label>
+                    <select id="attendance-status">
+                        <option value="Present" selected>Present</option>
+                        <option value="Absent">Absent</option>
+                    </select>
+                </div>
 
-                <!-- Form Buttons -->
+                <!-- Simple fee payment status -->
+                <div class="form-group">
+                    <label for="fee-status">Fee Payment Status</label>
+                    <select id="fee-status">
+                        <option value="Unpaid" selected>Unpaid</option>
+                        <option value="Paid">Paid</option>
+                        <option value="Partial">Partial</option>
+                    </select>
+                </div>
+
                 <div class="form-buttons">
-
-                    <button type="submit" id="add-student-btn">
-                        Add Student
-                    </button>
-
-                    <button type="button" id="save-draft-btn">
-                        Save as Draft
-                    </button>
-
+                    <button type="submit" id="add-student-btn">Add Student</button>
+                    <button type="button" id="save-draft-btn">Save as Draft</button>
                 </div>
-
             </form>
-
             <p id="message"></p>
-
         </section>
-
 
         <!-- Registered Students -->
         <section class="student-list-section">
-
             <div class="section-heading">
-
                 <h2>Registered Students</h2>
-
-                <button type="button" id="view-drafts-btn">
-                    View Drafts
-                </button>
-
+                <button type="button" id="view-drafts-btn">View Drafts</button>
             </div>
 
+            <div class="student-controls">
+                <input type="text" id="search-student" placeholder="Search student by name...">
+                <select id="course-filter">
+                    <option value="">All Courses</option>
+                    <option value="HTML/CSS">HTML/CSS</option>
+                    <option value="JavaScript">JavaScript</option>
+                    <option value="Python">Python</option>
+                    <option value="Java">Java</option>
+                </select>
+                <select id="sort-students">
+                    <option value="default">Default Order</option>
+                    <option value="ascending">Name (A-Z)</option>
+                    <option value="descending">Name (Z-A)</option>
+                </select>
+            </div>
 
-            <input
-                type="text"
-                id="search-student"
-                placeholder="Search student by name..."
-            >
-
+           
 
             <div class="table-container">
-
                 <table>
-
                     <thead>
                         <tr>
                             <th>Student Name</th>
                             <th>Email</th>
                             <th>Course</th>
+                            <th>Attendance</th>
+                            <th>Fee Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
-
                     <tbody id="student-list"></tbody>
-
                 </table>
-
             </div>
-
         </section>
-
 
         <!-- Draft Students -->
         <section class="student-list-section draft-section" id="draft-section" hidden>
-
             <h2>Draft Students</h2>
-
             <div class="table-container">
-
                 <table>
-
                     <thead>
                         <tr>
                             <th>Student Name</th>
                             <th>Email</th>
                             <th>Course</th>
+                            <th>Attendance</th>
+                            <th>Fee Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
-
                     <tbody id="draft-list"></tbody>
-
                 </table>
-
             </div>
 
-        </section>
+            </section>
 
+            <div class="pagination-container">
+
+    <p id="page-info"></p>
+
+    <div class="pagination-buttons">
+
+        <button type="button" id="previous-btn">
+            Previous
+        </button>
+
+        <div id="page-numbers"></div>
+
+        <button type="button" id="next-btn">
+            Next
+        </button>
+
+    </div>
+
+</div>
     </main>
-
 
     <!-- Footer -->
     <footer>
         <p>Student Registration System</p>
     </footer>
-<script src="script.js"></script>
 
+    <script src="script.js"></script>
 </body>
-
 </html>
